@@ -1,0 +1,22 @@
+Ideas for tests
+
+Reponses:
+    Machinery
+        Hilbert paths
+            Equality
+
+    Linears:
+        Lorentzian peak
+        Gaussian peak
+        HR coupling
+        Test both rescaled and not (shape vs quantitative)
+    Third order:
+        two level system, purely homogeneous
+        two level system, homo+inhomo, compare to sum of gaussian distribution of 2D Lorentzian
+
+    Lineshape functions
+        homogeneous (trivial)
+        inhomogeneous (trivial)
+        kubo (trivial)
+        HR (trivial)
+        spectral density integration... (when needed.)
