@@ -6,7 +6,7 @@ linear(ω_eg, t, g::Function) = cis(-ω_eg*t) * exp(-g(t))
 
 #=                  third order                                         =#
 # TODO: check if defining conjugates in function is more costly than passing
-# in.
+# in. Should not due to dispatch
 @inline function F1_arg(t1, t2, t3, g_aa, g_bb, g_cc, g_ba, g_ca, g_cb)
     g_cc′(t) = (conj ∘ g_cc)(t)
     g_bb′(t) = (conj ∘ g_bb)(t)
