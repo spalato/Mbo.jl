@@ -1,5 +1,11 @@
+# Allow flexibility in calling the response functions.
 
-# Allow flexibility in calling the reponse functions.
+linear(g::TimeGrid, s::System, p::HilbertPath{3}) = amplitude(s,p)*linear(g, energy(s, p), lineshape(s, p))
+linear(g::TimeGrid, s::System) = sum(p->linear(g, s, p), hilbert_paths(s, 1))
+linear(t1, ws::NTuple{1, Real}, ls::NTuple{1,Function}) = linear(t1, ws..., ls...)
+linear(g::TimeGrid, ws, ls) = linear(grid(g)..., ws..., ls...) # could be fed to the @eval loop.
+linear(t1::Array{<:Real,1}, a...) = linear.(t1, a...)
+
 # Use the @eval macro to operate on R1 to R4.
 for R=(:R1, :R2, :R3, :R4)
     @eval begin
@@ -7,8 +13,8 @@ for R=(:R1, :R2, :R3, :R4)
     It's important to unpack the lineshape functions early: dispatch will then
     ensure each combination of lineshape function gets optimized.
     =#
-    $(R)(g::TimeGrid{<:Real,3}, s::System, p::HilbertPath{5}) = $(R)(g, energy(s, p), lineshape(s, p))
-    $(R)(g::TimeGrid{T,3}, s::System) where {T} = sum(p->$(R)(g, s, p), hilbert_paths(s, 3))
+    $(R)(g::TimeGrid{<:Real,3}, s::System, p::HilbertPath{5}) = amplitude(s,p)*$(R)(g, energy(s, p), lineshape(s, p))
+    $(R)(g::TimeGrid{<:Real,3}, s::System) = sum(p->$(R)(g, s, p), hilbert_paths(s, 3))
     # allow unpacking both ways.
     $(R)(t1, t2, t3, ws::NTuple{3,Real}, ls::NTuple{6,Function}) = $(R)(t1, t2, t3, ws..., ls...)
     $(R)(g::TimeGrid{<:Real,3}, ws, ls) = $(R)(grid(g)..., ws..., ls...)

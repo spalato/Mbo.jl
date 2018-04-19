@@ -39,12 +39,17 @@ isallowed(s::System, tag1, tag2) = dipole(s, tag1, tag2) > 0
 allallowed(s::System, tags) = all(isallowed.(s, tags[2:end], tags[1:end-1]))
 allallowed(s::System, p::HilbertPath) = allallowed(s, p.p)
 dipole(s::System, p::HilbertPath) = dipole.(s, p.p[1:end-1], p.p[2:end])
-amplitude(s::System, p::HilbertPath) = prod(dipole(s, p)...) 
+amplitude(s::System, p::HilbertPath) = prod(dipole(s, p)) 
 
 # lineshapes
 lineshape(s::System, tag1, tag2) = s.lineshapes[tag1, tag2]
 lineshape!(s, tag1, tag2, f) = s.lineshapes[tag1, tag2] = f
-function lineshape(s::System, p::HilbertPath)
+function lineshape(s::System, p::HilbertPath{3})
+    ref, a, _ = p.p
+    return (lineshape(s, a, a),)
+end
+
+function lineshape(s::System, p::HilbertPath{5})
     ref, a, b, c, _ = p.p
     return (lineshape(s, a, a), lineshape(s, b, b), lineshape(s, c, c),
             lineshape(s, b, a), lineshape(s, c, a), lineshape(s, c, b))

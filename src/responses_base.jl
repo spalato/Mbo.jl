@@ -2,7 +2,7 @@ export linear, R1, R2, R3, R4
 
 #=                  RESPONSES                                           =#
 #=                  first order                                         =#
-linear(ω_eg, t, g::Function) = cis(-ω_eg*t) * exp(-g(t))
+linear(t, ω_eg, g::Function) = cis(-ω_eg*t) * exp(-g(t))
 
 #=                  third order                                         =#
 # TODO: check if defining conjugates in function is more costly than passing
