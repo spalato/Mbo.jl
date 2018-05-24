@@ -2,6 +2,7 @@
 module Mbo
 
 include("utils.jl")
+include("time_correlation.jl")
 include("spectral_densities.jl")
 include("lineshapes.jl")
 include("responses_base.jl")

@@ -1,4 +1,4 @@
-export TimeGrid, grid
+export TimeGrid, grid#, size
 
 # check StaticArrays
 struct TimeGrid{T,N}
@@ -11,3 +11,4 @@ function grid(tg::TimeGrid{T,N}) where {T,N}
              Tuple(setindex!(ones(Int32, N), length(t_), i)))
           for (i, t_) in enumerate(tg.times))
 end
+Base.size(tg::TimeGrid) = map(length, tg.times)

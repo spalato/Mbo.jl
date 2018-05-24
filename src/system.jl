@@ -12,7 +12,7 @@ struct System
     grounds::Set{String} # ground states (or set)
     energies::Dict{String, Float64}  
     dipoles::Dict{Tuple{String, String}, Float64} # 
-    lineshapes::Dict{Tuple{String, String}, Function}
+    lineshapes::Dict{Tuple{String, String}, Any} # TODO: replace any with traits
     # TODO: some constructors
 end
 System() = System(Set{String}(),
@@ -25,7 +25,12 @@ System() = System(Set{String}(),
 states(s::System) = keys(s.energies)
 energy(s::System, tag) = s.energies[tag]
 energy!(s::System, tag, v) = s.energies[tag] = v
-function energy(s::System, p::HilbertPath)
+# I can most likely streamline this, (as well as lineshapes)
+function energy(s::System, p::HilbertPath{3})
+    ref, a, _ = p.p
+    (energy(s, a),)
+end
+function energy(s::System, p::HilbertPath{5})
     ref, a, b, c, _ = p.p
     (energy(s, a), energy(s, b), energy(s, c))
 end

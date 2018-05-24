@@ -15,7 +15,7 @@ using Base.test
         @test order(p4) == 3
     end
 end
-
+#=
 @testset "System" begin
     @testset "Generation" begin
         # make sure the lookups are idempotent
@@ -38,3 +38,14 @@ end
 
     end
 end
+=#
+#=
+@testset "Correlation functions" begin
+    @testset "Gridded" begin
+        ts = linspace(0, 100, 101)
+        dt = step(ts)
+        @assert dt == 1.0
+        @. cf = exp(-ts/20)+exp(-0.5*(ts/20)^2) + 0.2*cos(ts*2*pi/10)
+    end
+end
+=#
