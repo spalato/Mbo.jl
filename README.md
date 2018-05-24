@@ -105,13 +105,19 @@ state are always 0.
 Basics
 ------
 The attributes of the system are set and read using functions. Functions that
-modify the `System` object end with `!`. (This is purely a convention in Julia,
-the `!` has no special meaning.) The energies and transition dipoles are rather
-straightforward.
+modify the `System` object end with `!` (this is purely a convention in Julia,
+the `!` has no special meaning).  States are indexed by case-sensitive strings.
+You can use "G", "X1", "S+3/2L", as you wish.
+
+Setting and reading state energies and transition dipoles are rather
+straightforward. No implicit unit conversions are made.
 ```julia
 using Mbo
+# use "g" as a ground state with energy 0
 s = System("g")
-# set energies
+@assert "g" in states(s)
+@assert energy(s, "g") == 0
+# set energies in angular frequencies, inverse of your time axis (PHz for fs)
 energy!(s, "x1", 1.2)
 energy!(s, "x2", 1.4)
 # read energies:
@@ -204,7 +210,8 @@ WIP
 - three level system, g e f (ladder)
 - Example coherence beatmap (g e1 e2 f)
 - Example vibrational beatmap (g e f) + phonon
-- Example: correlation functions and many body.
+- Example: correlation functions and many body
+- Make sure to demonstrate LineshapeLUT
 -->
 
 Scripts
