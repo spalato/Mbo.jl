@@ -1,5 +1,5 @@
 # Allow flexibility in calling the response functions.
-using ProgressMeter
+#using ProgressMeter
 
 linear(g::TimeGrid, s::System, p::HilbertPath{3}) = amplitude(s,p)*linear(g, energy(s, p), lineshape(s, p))
 linear(g::TimeGrid, s::System) = sum(p->linear(g, s, p), hilbert_paths(s, 1))
@@ -15,9 +15,10 @@ for R=(:R1, :R2, :R3, :R4)
     It's important to unpack the lineshape functions early: dispatch will then
     ensure each combination of lineshape function gets optimized.
     =#
-    $(R)(g::TimeGrid{<:Real,3}, s::System, p::HilbertPath{5}, m::Progress) = (v=amplitude(s,p)*$(R)(g, energy(s, p), lineshape(s, p)); next!(m);v)
+    #$(R)(g::TimeGrid{<:Real,3}, s::System, p::HilbertPath{5}, m::Progress) = (v=amplitude(s,p)*$(R)(g, energy(s, p), lineshape(s, p)); next!(m);v)
+    $(R)(g::TimeGrid{<:Real,3}, s::System, p::HilbertPath{5}) = amplitude(s,p)*$(R)(g, energy(s, p), lineshape(s, p))
     $(R)(g::TimeGrid{<:Real,3}, s::System) = sum(p->$(R)(g, s, p), hilbert_paths(s, 3))
-    $(R)(g::TimeGrid{<:Real,3}, s::System, m::Progress) = sum(p->$(R)(g, s, p, m), hilbert_paths(s, 3))
+    #$(R)(g::TimeGrid{<:Real,3}, s::System, m::Progress) = sum(p->$(R)(g, s, p, m), hilbert_paths(s, 3))
     # allow unpacking both ways.
     $(R)(t1, t2, t3, ws::NTuple{3,Real}, ls::NTuple{6,Any}) = $(R)(t1, t2, t3, ws..., ls...)
     $(R)(g::TimeGrid{<:Real,3}, ws, ls) = $(R)(grid(g)..., ws..., ls...)

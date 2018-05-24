@@ -18,4 +18,4 @@ simps(y, x::Range{T}) where {T} = simps(y, step(x))
 
 # convenience
 """Squeeze all dimensions of length 1"""
-Base.squeeze(A::AbstractArray) = squeeze(A, tuple(find(size(a).==1)...))
+Base.squeeze(A::AbstractArray) = squeeze(A, tuple(find(size(A).==1)...))
