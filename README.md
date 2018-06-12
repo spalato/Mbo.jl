@@ -1,6 +1,6 @@
 <!--This puppy is not ready for the world yet. -->
 
-Mbo.jl - Multimode Brownian Oscillator [WIP]
+Mbo.jl - Multimode Brownian Oscillator
 ======================================
 
 Semiclassical modeling of non-linear spectra in the time domain using the
@@ -15,7 +15,7 @@ model systems within reach of the humble experimental spectroscopist.
 It is a toolkit built around the spectroscopic system: the
 user specifies state energies, transition dipole moments and
 lineshape functions. The linear and non-linear responses can then be
-conveniently calculated from the system itself. 
+conveniently calculated from the system object. 
 
 For example:
 ```julia
@@ -56,7 +56,7 @@ syntax of `Matlab` and `python` but the computing power of compiled languages.
 
 Installation
 ============
-This packages uses the [`julia`](https://julialang.org/) programming language.
+This packages uses the [julia](https://julialang.org/) programming language.
 You'll need it, but it is easy to install.
 
 `Julia` is an  open-source language. It aims to provide clear syntax, similar to 
@@ -84,7 +84,7 @@ The calculation of the third order response is tedious: a given third order
 response function requires 3 time arguments, 3 frequencies, 6 lineshape
 functions and 4 transition dipoles. This has to be repeated for every possible
 path the system can take in Hilbert space. For `N` states (+ a single ground 
-state), there are around such paths `N^2`. This tedium is taken care of
+state), there are around `N^2` such paths. This tedium is taken care of
 using the `System` and `HilbertPath` objects. Handling of the time arguments
 is simplified using the `TimeGrid` object.
 
@@ -110,7 +110,7 @@ straightforward. No implicit unit conversions are made.
 using Mbo
 # use "g" as a ground state with energy 0
 s = System("g")
-@assert "g" in states(s)
+@assert "g" in states(s) # use the @assert macro for simple tests
 @assert energy(s, "g") == 0
 # set energies in angular frequencies, inverse of your time axis (PHz for fs)
 energy!(s, "x1", 1.2)
@@ -144,7 +144,7 @@ lineshape!(s, "x2", "x1", zero) # uncorrelated.
 ```
 
 The
-`TimeGrid` object to defines the domain of calculation. By default, the 
+`TimeGrid` object defines the domain of calculation. By default, the 
 calculation is performed automatically for all points of the grid and 
 for all paths.
 ```julia
@@ -155,8 +155,8 @@ tg = TimeGrid(t1, t2, t3)
 # compute everyting
 rtot = R1(tg, s) + R2(tg, s) + R3(tg, s) + R4(tg, s)
 ```
-Alternatively, you can generate Hilbert paths and compute
-for specific paths manually.
+Alternatively, you can generate Hilbert paths and limit the calculation
+to a subset of paths.
 ```julia
 hpaths = collect(hilbert_paths(s, 3)) # third order hilbert paths
 @assert length(hpaths) == 4 # 4 paths x 4 reponses -> 16 Feynmann diagrams.
@@ -164,7 +164,7 @@ hpaths = collect(hilbert_paths(s, 3)) # third order hilbert paths
 p = hpaths[1]
 r1 = R1(tg, s, p)
 ```
-The same objects can be used to compute the linear reponse.
+The same `System` and `TimeGrid` can be used to compute the linear reponse.
 ```julia
 rlin = linear(tg, s) # uses the first time delay
 lin_paths = collect(hilbert_paths(s, 1))
