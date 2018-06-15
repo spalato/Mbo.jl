@@ -194,13 +194,16 @@ Works, but deserve improvement:
 Citing
 ======
 If you found this useful, please consider citing the following paper:
-> Work in Progress...
+> S. Palato, H. Seiler, P. Nijjar, O. Prezdho, P. Kambhampat, *submitted* (2018)
 
 Examples
 ========
-WIP
+
+Examples are located in the `examples/` directory. Running the examples require
+some modules not strictly required by `Mbo.jl`. They are listed in `examples/julia_requires`
+
+- simple: Simple two-level system. Basic functionnality, plotting in julia and python.
 <!--TODO: do this. 
-- two level system (YAML)
 - two level system with phonon
 - three level system, g e1 e2
 - three level system, g e f (ladder)
