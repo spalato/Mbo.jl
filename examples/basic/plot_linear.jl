@@ -9,17 +9,6 @@ plotlyjs()
 function main(args)
 cfgf = args[1]
 cfg = open(YAML.load, cfgf)
-t1_n = cfg["t1_n"]
-t2_n = cfg["t2_n"]
-t3_n = cfg["t3_n"]
-t1_max = cfg["t1_max"]
-t2_max = cfg["t2_max"]
-t3_max = cfg["t3_max"]
-tg = TimeGrid(
-    linspace(0, t1_max, t1_n),
-    linspace(0, t2_max, t2_n),
-    linspace(0, t3_max, t3_n),
-);
 rootname = cfg["rootname"]
 
 # linear plotsa
