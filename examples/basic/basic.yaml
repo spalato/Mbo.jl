@@ -1,0 +1,11 @@
+rootname: basic  # control name of output files.
+e_frame: 1.0  # rotating frame frequency, eV
+e_a: 1.0  # energy of state a, eV
+sigma: 0.1  # inhomogeneous linewidth (gaussian), eV
+gamma: 0.1  # pure dephasing rate, eV
+t1_n: 101  # number of time points along t1
+t2_n: 1  # number of time points along t2
+t3_n: 101  # number of time points along t2
+t1_max: 100  # max t1 value
+t2_max: 0  # max t2 value  
+t3_max: 100  # max t2 value

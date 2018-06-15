@@ -11,18 +11,22 @@ struct System
     dipoles::Dict{Tuple{String, String}, Float64} 
     lineshapes::Dict{Tuple{String, String}, Any}
 end
-function System(ground_tag::String, g_energy=0.0)
+#= function System(ground_tag::String, g_energy=0.0)
     s = System()
     s.ground=ground_tag
     energy!(s, ground_tag, g_energy)
     s
+end =#
+function System(ground_tag::String="ground", g_energy=0.0)
+    s = System(
+        ground_tag,
+        Dict{String, Float64}(),
+        Dict{Tuple{String, String}, Float64}(),
+        Dict{Tuple{String,String}, Function}()
+    )
+    energy!(s, ground_tag, g_energy)
+    s
 end
-System() = System("",
-                  Dict{String, Float64}(),
-                  Dict{Tuple{String, String}, Float64}(),
-                  Dict{Tuple{String,String}, Function}()
-                  )
-                  
 # states
 states(s::System) = keys(s.energies)
 energy(s::System, tag) = s.energies[tag]

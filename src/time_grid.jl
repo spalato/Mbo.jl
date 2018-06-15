@@ -1,4 +1,5 @@
 export TimeGrid, grid#, size
+import DSP: fftfreq
 
 # check StaticArrays
 struct TimeGrid{T,N}
@@ -12,3 +13,15 @@ function grid(tg::TimeGrid{T,N}) where {T,N}
           for (i, t_) in enumerate(tg.times))
 end
 Base.size(tg::TimeGrid) = map(length, tg.times)
+
+t_to_f(t::Range) = fftshift(fftfreq(length(t), 1/step(t)))
+# use mean step. Hopefully doesn't matter.
+t_to_f(t::AbstractArray{<:Real, 1}) = fftshift(fftfreq(length(t), 1/mean(diff(t))))
+"""
+    freqs(tg::TimeGrid)
+
+Get FFT frequencies from a `TimeGrid`.
+
+For an `N`-dimensional `TimeGrid`, return `N` arrays.
+"""
+freqs(tg::TimeGrid) = map(t_to_f, tg.times)
