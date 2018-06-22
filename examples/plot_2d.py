@@ -1,8 +1,9 @@
 #!python
 # make plots, in python
-# usage: python plot_2d.py
+# usage: python plot_2d.py <config>
 
 import sys
+import os.path as pth
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
@@ -19,7 +20,7 @@ def expand_axis(x):
     return new
 
 cfgf = sys.argv[1]
-
+fld = pth.dirname(cfgf)
 with open(cfgf, "r") as f:
     cfg = yaml.load(f)
 
@@ -31,7 +32,7 @@ t_3 = np.linspace(0, cfg["t3_max"], cfg["t3_n"])
 
 for tresp in ["rr", "rn"]:
     fn = "{}_{}.bin".format(rootname, tresp)
-    sig = np.memmap(fn, dtype=np.complex128,
+    sig = np.memmap(pth.join(fld, fn), dtype=np.complex128,
                     shape=(t1_n, t2_n, t3_n), order="F")
     plt.figure(figsize=(4,4), dpi=300)
     z = np.real(sig[:,0,:])
@@ -50,7 +51,7 @@ f_3 = fftshift(fftfreq(t_3.size, t_3[1]-t_3[0]))
 
 for fresp in ["sr", "sn", "sa"]:
     fn = "{}_{}.bin".format(rootname, fresp)
-    sig = np.memmap(fn, dtype=np.complex128,
+    sig = np.memmap(pth.join(fld, fn), dtype=np.complex128,
                     shape=(t1_n, t2_n, t3_n), order="F")
     plt.figure(figsize=(4,4), dpi=300)
     z = np.real(sig[:,0,:])

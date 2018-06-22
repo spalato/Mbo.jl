@@ -14,6 +14,7 @@ end
 
 function main(args)
 cfgf = args[1]
+dir = dirname(cfgf)
 cfg = open(YAML.load, cfgf)
 t1_n = cfg["t1_n"]
 t2_n = cfg["t2_n"]
@@ -25,20 +26,20 @@ tg = TimeGrid(
     linspace(0, t1_max, t1_n),
     linspace(0, t2_max, t2_n),
     linspace(0, t3_max, t3_n),
-);
+)
 rootname = cfg["rootname"]
 f1 = fftshift(fftfreq(length(tg.times[1]), 1/diff(tg.times[1])[1]))
 f3 = fftshift(fftfreq(length(tg.times[3]), 1/diff(tg.times[3])[1]))
 
-rr = read("$(rootname)_rr.bin", Complex128, size(tg))
+rr = read(joinpath(dir, "$(rootname)_rr.bin"), Complex128, size(tg))
 sym_heatmap(tg.times[1], tg.times[3], real(rr[:,1,:]), "$(rootname)_rr.png")
-rn = read("$(rootname)_rn.bin", Complex128, size(tg))
+rn = read(joinpath(dir, "$(rootname)_rn.bin"), Complex128, size(tg))
 sym_heatmap(tg.times[1], tg.times[3], real(rn[:,1,:]), "$(rootname)_rn.png")
-sr = read("$(rootname)_sr.bin", Complex128, size(tg))
+sr = read(joinpath(dir, "$(rootname)_sr.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sr[:,1,:]), "$(rootname)_sr.png")
-sn = read("$(rootname)_sn.bin", Complex128, size(tg))
+sn = read(joinpath(dir, "$(rootname)_sn.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sn[:,1,:]), "$(rootname)_sn.png")
-sa = read("$(rootname)_sa.bin", Complex128, size(tg))
+sa = read(joinpath(dir, "$(rootname)_sa.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sa[:,1,:]), "$(rootname)_sa.png")
 
 end

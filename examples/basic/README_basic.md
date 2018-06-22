@@ -26,7 +26,7 @@ This will produce the following output files:
 
 Binary files contain a three dimensional array of complex-128 numbers in Fortran order.
 They are produced using julia's [`write`](https://docs.julialang.org/en/stable/stdlib/io-network/#Base.write)
-function. For how to load in python, see `plot_2d.py`.
+function. For how to load in python, see `examples/plot_2d.py`.
 
 Plotting scripts are available in both julia and python. Plotting in julia
 doesn't require a working python install, but I find it horribly slow (it was
@@ -35,12 +35,12 @@ binary data in python.
 
 To plot in julia:
 ```
-julia plot_linear.jl basic.yaml
-julia plot_2d.jl basic.yaml
+julia ../plot_linear.jl basic.yaml
+julia ../plot_2d.jl basic.yaml
 ```
 
 To plot in python:
 ```
-python plot_linear.py basic.yaml
-python plot_2d.py basic.yaml
+python ../plot_linear.py basic.yaml
+python ../plot_2d.py basic.yaml
 ```

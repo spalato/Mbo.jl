@@ -199,8 +199,10 @@ If you found this useful, please consider citing the following paper:
 Examples
 ========
 
-Examples are located in the `examples/` directory. Running the examples require
-some modules not strictly required by `Mbo.jl`. They are listed in `examples/julia_requires`
+Examples are located in the `examples/` directory. The parameters of the
+calculations (energies, lineshape parameters) are stored in a separate `.yaml`
+config file. Plotting is carried out separately from the main calculation, see
+[Scripts](#Scripts).
 
 - simple: Simple two-level system. Basic functionnality, plotting in julia and python.
 <!--TODO: do this. 
@@ -217,8 +219,17 @@ Scripts
 -------
 Some examples use external scripts for pre or post processing (eg: plotting in
 Julia still requires work). As such, some examples are not fully self contained
-and can involve scripts written in `python`, `julia` and `powershell`.
-<!--TODO: COMPLETE THIS -->
+and can involve scripts written in `python`, `julia` and `powershell`. These
+scripts can be found in the `examples/` directory.
+
+- `plot_linear.jl`: plot linear response (time and frequency domain) in julia;
+- `plot_linear.py`: plot linear response in python;
+- `plot_2d.jl`: plot 3rd order response (t,t,t and f,t,f) in julia;
+- `plot_2d.py`: plot 3rd order response (t,t,t and f,t,f) in python.
+
+Example plotting scripts are supplied for `julia` and `python`.
+Plotting in julia requires a few extra packages, listed in `examples/julia_requires`.
+Plotting in python requires `numpy` and `matplotlib`, see `examples/python_requirements.txt`.
 
 Help!
 =====
