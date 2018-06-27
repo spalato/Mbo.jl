@@ -204,10 +204,10 @@ calculations (energies, lineshape parameters) are stored in a separate `.yaml`
 config file. Plotting is carried out separately from the main calculation, see
 [Scripts](#Scripts).
 
-- simple: Simple two-level system. Basic functionnality, plotting in julia and python.
+- basic: Simple two-level system. Basic functionnality, plotting in julia and python.
+- vibrational: Two-level system coupled to a coherent phonon without damping.
+- electronic: Three-level system (two singly excited states) demonstrating electronic coherences.
 <!--TODO: do this. 
-- two level system with phonon
-- three level system, g e1 e2
 - three level system, g e f (ladder)
 - Example coherence beatmap (g e1 e2 f)
 - Example vibrational beatmap (g e f) + phonon
