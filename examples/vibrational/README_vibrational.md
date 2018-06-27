@@ -15,4 +15,4 @@ To run the calculation, run:
 julia vibrational.jl <config>
 ```
 The time grid is much larger than in the simple case. For a description of the
-output files, see the simple example.
+output files, see the simple example. The calculation takes around 10 s.
