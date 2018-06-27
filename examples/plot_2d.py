@@ -37,7 +37,7 @@ for tresp in ["rr", "rn"]:
     plt.figure(figsize=(4,4), dpi=300)
     z = np.real(sig[:,0,:])
     lim = np.max(np.abs(z))
-    plt.pcolormesh(t_1, t_3, z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
+    plt.pcolormesh(expand_axis(t_1), expand_axis(t_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
     levels = np.linspace(-lim, lim, 11)
     plt.contour(t_1, t_3, z.T, levels=levels, colors='0.8', linewidths=0.5)
     outname = fn[:-4]+".png"
@@ -58,7 +58,7 @@ for fresp in ["sr", "sn", "sa"]:
     lim = np.max(np.abs(z))
     plt.pcolormesh(expand_axis(f_1), expand_axis(f_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
     levels = np.linspace(-lim, lim, 11)
-    plt.contour(expand_axis(f_1), expand_axis(f_3), z.T, levels=levels, colors='0.8', linewidths=0.5)
+    plt.contour(f_1, f_3, z.T, levels=levels, colors='0.8', linewidths=0.5)
     outname = fn[:-4]+".png"
     plt.tight_layout()
     plt.subplots_adjust(left=0.15, right=0.9, top=0.9, bottom=0.15)
