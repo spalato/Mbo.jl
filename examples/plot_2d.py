@@ -8,8 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 import yaml
+from scipy.constants import eV, h, c, femto
 from numpy.fft import fft, ifft, fftshift, fftfreq, ifftshift
 
+def phz2ev(x):
+    scale = h/eV/femto
+    return x*scale
 
 def expand_axis(x):
     """Expand axis by first value, for use with pcolormesh"""
@@ -45,9 +49,9 @@ for tresp in ["rr", "rn"]:
     plt.subplots_adjust(left=0.15, right=0.9, top=0.9, bottom=0.15)
     plt.savefig(outname)
 
-f_1 = fftshift(fftfreq(t_1.size, t_1[1]-t_1[0]))
+f_1 = phz2ev(fftshift(fftfreq(t_1.size, t_1[1]-t_1[0])))
 #f_2 = phz2ev(fftshift(fftfreq(t_2.size, t_2[1]-t_2[0])))
-f_3 = fftshift(fftfreq(t_3.size, t_3[1]-t_3[0]))
+f_3 = phz2ev(fftshift(fftfreq(t_3.size, t_3[1]-t_3[0])))
 
 for fresp in ["sr", "sn", "sa"]:
     fn = "{}_{}.bin".format(rootname, fresp)

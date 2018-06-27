@@ -1,4 +1,4 @@
-# basic example for a 2 level system coupled to a vibrational mode.
+# basic example for a 3 level system g -> e -> f
 
 using Mbo
 import DSP: fftfreq
@@ -14,12 +14,12 @@ root = cfg["rootname"]
 
 # build lineshape functions
 g = Dict()
-for (tag1, tag2) in (["A", "A"], ["A", "B"], ["B","B"])
+for (tag1, tag2) in (["e", "e"], ["e", "f"], ["f","f"])
     γ = ev2angphz(cfg["gamma_$(tag1)$(tag2)"])
     σ = ev2angphz(cfg["sigma_$(tag1)$(tag2)"])
     g[tag1, tag2] = t -> g_homo(t, γ) + g_inhomo(t, σ)
 end
-g["B", "A"] = g["A", "B"]
+g["f", "e"] = g["e", "f"]
 
 t1_n = cfg["t1_n"]
 t2_n = cfg["t2_n"]
@@ -27,17 +27,20 @@ t3_n = cfg["t3_n"]
 t1_max = cfg["t1_max"]
 t2_max = cfg["t2_max"]
 t3_max = cfg["t3_max"]
+e_e = ev2angphz(cfg["e_e"])
+e_f = ev2angphz(cfg["e_f"])
 
 info("Setting up system")
 s = System("g")
-for tag1 in ["A", "B"], tag2 in ["A", "B"]
-    energy!(s, tag1, ev2angphz(cfg["e_$(tag1)"]) - ω_frame)
-    dipole!(s, "g", tag1, 1.0)
-    tag2 != tag1 && dipole!(s, tag1, tag2, 0)
+# rotating frame is a bit artisanal. It shows here.
+energy!(s, "e",  e_e - ω_frame)
+energy!(s, "f", e_f - 2*ω_frame)
+dipole!(s, "g", "e", 1.0)
+dipole!(s, "g", "f", 0.0)
+dipole!(s, "e", "f", 1.0)
+for tag1 in ["e", "f"], tag2 in ["e", "f"]
     lineshape!(s, tag1, tag2, g[tag1, tag2])
 end
-
-# Nothing has changed past that point!
 
 tg = TimeGrid(
     linspace(0, t1_max, t1_n),
@@ -58,8 +61,21 @@ writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 info("Computing third order response")
 tic()
-rr = R2(tg, s) + R3(tg, s)
-rn = R1(tg, s) + R4(tg, s)
+hpaths = collect(hilbert_paths(s, 3))
+rr = zeros(Complex128, size(tg))
+rn = zeros(Complex128, size(tg))
+# Rephasing induced absorption is given by R1* 
+# Nonrephasing IA is given by R2*
+# Should be streamlined...
+for p in filter(hp->hp.p[3] == "g", hpaths)
+    rr += R2(tg, s, p) + R3(tg, s, p)
+    rn += R1(tg, s, p) + R4(tg, s, p)
+end
+for p in filter(hp->hp.p[3] == "f", hpaths)
+    rr += -conj(R1(tg, s, p))
+    rn += -conj(R2(tg, s, p))
+end
+
 dt = toq()
 info("Calulation took $(dt) s")
 info("Saving to $(root)_rr.bin, $(root)_rn.bin")

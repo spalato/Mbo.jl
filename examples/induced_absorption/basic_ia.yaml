@@ -1,0 +1,16 @@
+rootname: basic_ia  # control name of output files.
+e_frame: 1.0  # rotating frame frequency, eV
+e_e: 1.0
+e_f: 1.8
+sigma_ee: 0.04
+sigma_ff: 0.08  # 2 sigma_ee
+sigma_ef: 0.056568  # sqrt(sigma_ee * sigma_ff)
+gamma_ee: 0.02
+gamma_ff: 0.08
+gamma_ef: 0.04
+t1_n: 101  # number of time points along t1
+t2_n: 1  # number of time points along t2
+t3_n: 101  # number of time points along t2
+t1_max: 500  # max t1 value, fs
+t2_max: 0  # max t2 value, fs
+t3_max: 500  # max t2 value, fs
