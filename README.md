@@ -4,13 +4,13 @@ Mbo.jl - Multimode Brownian Oscillator
 ======================================
 
 Semiclassical modeling of non-linear spectra in the time domain using the
-Multimode Brownian Oscillator model, in julia. Designed for the modeling of 2D
-visible spectroscopy. Hopefully fast, hopefully easy to use.
+Multimode Brownian Oscillator model. Designed for the modeling of 2D
+visible spectra. Hopefully fast, hopefully easy to use.
 
 Description
 -----------
 
-This code aims to put the modeling of simple
+This code aims to put the modeling of the 2D spectra of simple
 model systems within reach of the humble experimental spectroscopist. 
 It is a toolkit built around the spectroscopic system: the
 user specifies state energies, transition dipole moments and
@@ -80,6 +80,23 @@ this means state energies, transition dipole moments and lineshape functions.
 
 Physics
 -------
+The third order response is calculated using the Cumulant expansion to second
+order. This method is briefly presented here. For details, refer to the books
+by [Mukamel](#book_mukamel)<!-- !! add chapters!! --> and [Cho](#book_cho).
+
+The calculation of 2D spectra is carried out using the 4-point correlation
+function of the transition dipole moments. The 4-point correlation function
+has 4 time arguments, whose permutations give rise to the more commonly
+discussed double-sided Feynman diagrams.
+
+When multiple states are involved, different transition dipole operators can be
+involved in the third order response, and thus in the 4-point correlation
+function. A given combination of 4 transition dipole operator
+take the system through up to 4 spectroscopically coupled states. The path the 
+system takes through it's manifold of states is called here a Hilbert Path.
+As previously mentionned, each of these Hilbert paths gives rise to 4 
+double-sided Feynmann diagrams.
+
 The calculation of the third order response is tedious: a given third order 
 response function requires 3 time arguments, 3 frequencies, 6 lineshape
 functions and 4 transition dipoles. This has to be repeated for every possible
