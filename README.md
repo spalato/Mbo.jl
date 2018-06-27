@@ -207,8 +207,8 @@ config file. Plotting is carried out separately from the main calculation, see
 - basic: Simple two-level system. Basic functionnality, plotting in julia and python.
 - vibrational: Two-level system coupled to a coherent phonon without damping.
 - electronic: Three-level system (two singly excited states) demonstrating electronic coherences.
+- induced absorption: Three-level system featuring a doubly excited state.
 <!--TODO: do this. 
-- three level system, g e f (ladder)
 - Example coherence beatmap (g e1 e2 f)
 - Example vibrational beatmap (g e f) + phonon
 - Example: correlation functions and many body
