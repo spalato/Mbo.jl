@@ -11,6 +11,8 @@ import yaml
 from numpy.fft import fft, ifft, fftshift, fftfreq, ifftshift
 from scipy.constants import eV, h, c, femto
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from styles import presentation
+presentation()
 
 def between(x, lo, hi):
     return (x>lo) & (x<hi)
@@ -68,11 +70,12 @@ for (t1, t3), (l1, l3) in zip(product(tags, tags), product(locs, locs)):
     ax_inset.add_patch(plt.Rectangle(
         (l1-sl_hw, l3-sl_hw), sl_w, sl_w, facecolor=color, alpha=0.5, edgecolor='k'
         ))
-ax.legend()
+#ax.legend()
 
 z = np.real(sig[:,0,:])
 vlim = np.max(np.abs(z))
 ax_inset.pcolormesh(expand_axis(f_1), expand_axis(f_3), z.T, cmap="seismic", vmin=-vlim, vmax=vlim, zorder=-10)
+ax_inset.tick_params(labelleft=False, labelbottom=False)
 margin = 0.05
 bounds = [locs[0]-margin, locs[1]+margin]
 ax_inset.set_xlim(*bounds)

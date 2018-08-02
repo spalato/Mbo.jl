@@ -10,6 +10,12 @@ import matplotlib.patheffects as pe
 import yaml
 from scipy.constants import eV, h, c, femto
 from numpy.fft import fft, ifft, fftshift, fftfreq, ifftshift
+try:
+    from styles import presentation
+except ImportError:
+    pass
+else:
+    presentation()
 
 def phz2ev(x):
     scale = h/eV/femto

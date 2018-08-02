@@ -1,4 +1,4 @@
-$cfg="ecoh.yaml"
+$cfg="ecoh_uc.yaml"
 julia ecoh.jl $cfg
 python ../plot_linear.py $cfg
 python ../plot_2d.py $cfg
