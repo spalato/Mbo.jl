@@ -211,7 +211,7 @@ Works, but deserve improvement:
 Citing
 ======
 If you found this useful, please consider citing the following paper:
-> S. Palato, H. Seiler, P. Nijjar, O. Prezdho, P. Kambhampat, *submitted* (2018)
+> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, *submitted* (2018)
 
 Examples
 ========
