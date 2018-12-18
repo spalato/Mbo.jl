@@ -13,6 +13,8 @@ function grid(tg::TimeGrid{T,N}) where {T,N}
           for (i, t_) in enumerate(tg.times))
 end
 Base.size(tg::TimeGrid) = map(length, tg.times)
+# to find a greated common divisor (gcd) for floats:
+# https://www.geeksforgeeks.org/program-find-gcd-floating-point-numbers/
 
 t_to_f(t::Range) = fftshift(fftfreq(length(t), 1/step(t)))
 # use mean step. Hopefully doesn't matter.

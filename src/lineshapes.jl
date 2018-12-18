@@ -1,4 +1,4 @@
-export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT
+export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_overdamped
 
 #=                  LINESHAPE FUNCTIONS                                 =#
 g_homo(t, γ) = t*γ
@@ -7,7 +7,11 @@ function g_huang_rhys(t, omega_0, kt)
     w0t = omega_0*t
     coth(omega_0/kt/2.0)*(1-cos(w0t))+1im*(sin(w0t)-w0t)
 end
-g_kubo(t, τ, σ) = (σ*τ)^2*(exp(-t/τ)+t/τ-1) # TODO: TRY
+g_kubo(t, τ, σ) = (σ*τ)^2*(exp(-t/τ)+t/τ-1)
+function g_overdamped(t, τ, σ, kt)
+    λ = σ^2/2/kt
+    g_kubo(t, τ, σ)+1im*λ*τ*(1-exp(-t/τ))
+end
 
 #abstract type Lineshape end
 # Tried with LazyList. HORRIBLY SLOW (they don't carry type information)
