@@ -1,4 +1,4 @@
-export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_overdamped
+export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_od, g_od_slow, g_matsu_freq
 
 #=                  LINESHAPE FUNCTIONS                                 =#
 g_homo(t, γ) = t*γ
@@ -8,9 +8,23 @@ function g_huang_rhys(t, omega_0, kt)
     coth(omega_0/kt/2.0)*(1-cos(w0t))+1im*(sin(w0t)-w0t)
 end
 g_kubo(t, τ, σ) = (σ*τ)^2*(exp(-t/τ)+t/τ-1)
-function g_overdamped(t, τ, σ, kt)
+function g_od_slow(t, τ, σ, kt) # valid if kT >> hbar/tau
     λ = σ^2/2/kt
     g_kubo(t, τ, σ)+1im*λ*τ*(1-exp(-t/τ))
+end
+
+function matsu_freq(n, kt, t, τ)
+    nun = 2*π*kt*n
+    (exp(-nun*t)+nun*t-1)/(nun*(nun^2-1/τ^2))::Real
+end
+
+function g_od(t, τ, σ, kt) # overdamped
+    t == 0.0 && return 0.0
+    λ = σ^2/2/kt
+    gi = λ*τ*(1-exp(-t/τ))
+    nmin = ceil(Int, 1/(2*π*kt*τ))
+    gr = λ*τ*cot(1/2/τ/kt)*(exp(-t/τ)+t/τ-1) + 4*λ*kt/τ * converge_series(k->matsu_freq(k, kt, t, τ), nmin=nmin)
+    gr+1im*gi
 end
 
 #abstract type Lineshape end
