@@ -1,5 +1,3 @@
-<!--This puppy is not ready for the world yet. -->
-
 Mbo.jl - Multimode Brownian Oscillator
 ======================================
 
@@ -253,6 +251,7 @@ Help!
 Please open an issue using the 'Issues' tab at the top. You found a bug? You
 can't achieve what you want? Lost and confused? Anything works. 
 
+<!--
 TODO
 ====
 - [x] Handle ground states easily. (Default lineshape functions in case they're missing)
