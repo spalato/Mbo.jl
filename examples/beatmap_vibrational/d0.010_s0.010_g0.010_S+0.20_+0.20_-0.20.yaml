@@ -1,0 +1,15 @@
+e_eg: 1.94
+binding: 0.01
+e_frame: 1.94
+sigma: 0.01
+gamma: 0.01
+e_vib: 0.0258
+kt: 0.0252
+s_hr: 0.2
+rootname: vib_ia
+t1_max: 2000
+t1_n: 400
+t2_max: 2000
+t2_n: 200
+t3_max: 2000
+t3_n: 400
