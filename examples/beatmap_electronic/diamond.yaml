@@ -1,0 +1,13 @@
+rootname: diamond  # control name of output files.
+e_frame: 1.94
+e0: 1.94 # midpoint
+de: 0.0255
+binding: 0.01
+gamma: 0.01
+sigma: 0.01
+t1_max: 2000
+t1_n: 400
+t2_max: 800
+t2_n: 200
+t3_max: 2000
+t3_n: 400
