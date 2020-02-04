@@ -1,5 +1,3 @@
-<!--This puppy is not ready for the world yet. -->
-
 Mbo.jl - Multimode Brownian Oscillator
 ======================================
 
@@ -197,7 +195,7 @@ Currently supported:
 - Set energies, transition dipoles (real only) and lineshape functions.
 - Computation for all pathways, or a subset.
 - Arbitrary callables for lineshape functions.
-- Built-in lineshapes: Homogeneous, Inhomogeneous, Huang-Rhys, Kubo ansatz.
+- Built-in lineshapes: Homogeneous, Inhomogeneous, Huang-Rhys, Kubo ansatz and variations thereof.
 - Lineshape functions from correlation functions.
 - Caching lineshape functions for improved performance.
 - Unit conversion: eV -> angular PHz (not automatic.)
@@ -211,7 +209,7 @@ Works, but deserve improvement:
 Citing
 ======
 If you found this useful, please consider citing the following paper:
-> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, *submitted* (2018)
+> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, *submitted* (2019)
 
 Examples
 ========
@@ -253,6 +251,7 @@ Help!
 Please open an issue using the 'Issues' tab at the top. You found a bug? You
 can't achieve what you want? Lost and confused? Anything works. 
 
+<!--
 TODO
 ====
 - [x] Handle ground states easily. (Default lineshape functions in case they're missing)
