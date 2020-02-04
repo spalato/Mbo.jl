@@ -8,10 +8,11 @@ immutable GriddedCF{Tg<:Real, Tcf<:Number}
     dt::Tg
     tm::Tg # max time
 end
-function GriddedCF(grid, dt)
+function GriddedCF(grid, dt) # performs the double integral on initialization
     grid = copy(grid)
     grid[1] *= 0.5
     I1 = cumsum_kbn(grid).*dt
+    # TODO: check next line is ok: cumsum_kbb(I1) vs cumsum_kbb(I1).*dt
     GriddedCF(cumsum_kbn(I1), I1[end], dt, dt*length(grid))
 end
 # make callable

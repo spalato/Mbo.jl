@@ -1,4 +1,4 @@
-export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_od, g_od_slow, g_matsu_freq
+export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_od, g_od_slow
 
 #=                  LINESHAPE FUNCTIONS                                 =#
 g_homo(t, γ) = t*γ
