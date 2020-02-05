@@ -29,6 +29,13 @@ def expand_axis(x):
     new[0] = first
     return new
 
+def setup_time_axis(idx, cfg):
+    try:
+        ax = np.linspace(0, cfg[f"t{idx}_max"], cfg[f"t{idx}_n"])
+    except KeyError:
+        ax = np.array(cfg[f"t{idx}"])
+    return ax
+
 cfgf = sys.argv[1]
 fld = pth.dirname(cfgf)
 with open(cfgf, "r") as f:
@@ -36,9 +43,12 @@ with open(cfgf, "r") as f:
 
 locals().update(**cfg) # that's how we roll.
 
-t_1 = np.linspace(0, cfg["t1_max"], cfg["t1_n"])
-t_2 = np.linspace(0, cfg["t2_max"], cfg["t2_n"])
-t_3 = np.linspace(0, cfg["t3_max"], cfg["t3_n"])
+t_1 = setup_time_axis(1, cfg)
+t_2 = setup_time_axis(2, cfg)
+t_3 = setup_time_axis(3, cfg)
+t1_n = t_1.size
+t2_n = t_2.size
+t3_n = t_3.size
 
 for tresp in ["rr", "rn"]:
     fn = "{}_{}.bin".format(rootname, tresp)
