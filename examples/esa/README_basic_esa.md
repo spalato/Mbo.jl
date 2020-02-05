@@ -1,4 +1,4 @@
-# Simple induced absorption
+# Simple excited state absorption
 
 The calculation is made for a simple three-level system: ground state `g`,
 excited state `e` and doubly excited state `f`. This is the simplest system to
