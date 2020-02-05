@@ -17,6 +17,7 @@ t0 = now()
 cfgf = args[1]
 info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
+root = cfg["rootname"]
 states_fn = cfg["states_fn"]
 cf_fn = cfg["cf_fn"]
 
@@ -56,29 +57,12 @@ info("    Took $(now()-t0_sys)")
 info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
 info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
-grd_lin = TimeGrid(t1)
-
-info("Computing linear responses separately.")
-t0_calc = now()
-out_root = "$(splitext(basename(states_fn))[1])_$(splitext(basename(cf_fn))[1])"
-
-# compute them separately
-totlin = zeros(Complex128, size(grd_lin))
-for p in hilbert_paths(s, 1)
-    rlin = linear(grd_lin, s, p)
-    totlin += rlin
-    out_lin = out_root*"_lin_"*join(p.p[2:end-1], "-")*".txt"
-    info("Saving linear to: $out_lin")
-    writedlm(out_lin, [grid(grd_lin)[1] real(rlin) imag(rlin)])
-end
-writedlm(out_root*"_lin_tot.txt", [grid(grd_lin)[1] real(totlin) imag(totlin)])
-info("    Took $(now()-t0_calc)")
 info("Preparing calculation of third order response")
 grd_trd = TimeGrid(t1, t2, t3)
 info("Grid size: $(size(grd_trd))")
 
-rr_fn = out_root*"_rr.bin"
-rn_fn = out_root*"_rn.bin"
+rr_fn = root*"_rr.bin"
+rn_fn = root*"_rn.bin"
 info("Saving rephasing to: $rr_fn")
 info("Saving nonrephasing to: $rr_fn")
 rr_out = open(rr_fn, "w+")
