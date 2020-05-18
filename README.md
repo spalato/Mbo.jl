@@ -209,7 +209,7 @@ Works, but deserve improvement:
 Citing
 ======
 If you found this useful, please consider citing the following paper:
-> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, *submitted* (2019)
+> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, Atomic fluctuations in electronic materials revealed by dephasing, *PNAS* (2020) https://doi.org/10.1073/pnas.1916792117
 
 Examples
 ========
