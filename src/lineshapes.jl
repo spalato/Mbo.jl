@@ -38,7 +38,7 @@ end
 function LineshapeLUT(lut::Array{Tls,1}, dx::Tx) where {Tls, Tx}
     LineshapeLUT{Tx, Tls}(lut, dx)
 end
-function LineshapeLUT(f, x::Range{Tx}) where {Tx}#, Tls}
+function LineshapeLUT(f, x::AbstractRange{Tx}) where {Tx}#, Tls}
     gx = f.(x)
     LineshapeLUT{Tx,eltype(gx)}(gx, step(x)) 
 end

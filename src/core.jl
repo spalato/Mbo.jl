@@ -5,7 +5,7 @@ linear(g::TimeGrid, s::System, p::HilbertPath{3}) = amplitude(s,p)*linear(g, ene
 linear(g::TimeGrid, s::System) = sum(p->linear(g, s, p), hilbert_paths(s, 1))
 linear(t1::Real, ws::NTuple{1, Real}, ls::NTuple{1,Any}) = linear(t1, ws..., ls...)
 linear(g::TimeGrid{<:Real,1}, ws::NTuple{1, Real}, ls::NTuple{1,Any}) = linear(first(grid(g)), ws..., ls...) # could be fed to the @eval loop.
-linear(g::TimeGrid, ws::NTuple{1, Real}, ls::NTuple{1,Any}) = linear(squeeze(first(grid(g))), ws..., ls...) # could be fed to the @eval loop.
+linear(g::TimeGrid, ws::NTuple{1, Real}, ls::NTuple{1,Any}) = linear(dropdims(first(grid(g))), ws..., ls...) # could be fed to the @eval loop.
 linear(t1::Array{<:Real,1}, ws::Real, ls) = linear.(t1, ws, ls)
 
 # Use the @eval macro to operate on R1 to R4.
