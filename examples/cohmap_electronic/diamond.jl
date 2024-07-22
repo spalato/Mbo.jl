@@ -12,7 +12,7 @@ import YAML
 
 function run(args)
 cfg_f = args[1]
-info("Loading parameters from $cfg_f")
+@info("Loading parameters from $cfg_f")
 cfg = open(YAML.load, cfg_f)
 # load parameters
 root = cfg["rootname"]
@@ -37,7 +37,7 @@ t1_max = cfg["t1_max"]
 t2_max = cfg["t2_max"]
 t3_max = cfg["t3_max"]
 
-info("Setting up system")
+@info("Setting up system")
 s = System("g")
 energy!(s, "a", ωa)
 energy!(s, "b", ωb)
@@ -66,9 +66,9 @@ tg = TimeGrid(
     linspace(0, t3_max, t3_n),
 )
 
-info("Computing linear response")
+@info("Computing linear response")
 r_lin = linear(tg, s)
-info("Saving to $(root)_rlin.txt")
+@info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 
 r_lin[1] *= 0.5

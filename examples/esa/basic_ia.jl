@@ -6,7 +6,7 @@ import YAML
 
 function run(args)
 cfg_f = args[1]
-info("Loading parameters from $cfg_f")
+@info("Loading parameters from $cfg_f")
 cfg = open(YAML.load, cfg_f)
 # load parameters
 root = cfg["rootname"]
@@ -30,7 +30,7 @@ t3_max = cfg["t3_max"]
 e_e = ev2angphz(cfg["e_e"])
 e_f = ev2angphz(cfg["e_f"])
 
-info("Setting up system")
+@info("Setting up system")
 s = System("g")
 # rotating frame is a bit artisanal. It shows here.
 energy!(s, "e",  e_e - ω_frame)
@@ -48,18 +48,18 @@ tg = TimeGrid(
     linspace(0, t3_max, t3_n),
 )
 
-info("Computing linear response")
+@info("Computing linear response")
 r_lin = linear(tg, s)
-info("Saving to $(root)_rlin.txt")
+@info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 
 r_lin[1] *= 0.5
 s_lin = fftshift(ifft(r_lin))
 f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
-info("Saving linear spectrum to $(root)_slin.txt")
+@info("Saving linear spectrum to $(root)_slin.txt")
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
-info("Computing third order response")
+@info("Computing third order response")
 tic()
 hpaths = collect(hilbert_paths(s, 3))
 rr = zeros(Complex128, size(tg))
@@ -77,8 +77,8 @@ for p in filter(hp->hp.p[3] == "f", hpaths)
 end
 
 dt = toq()
-info("Calulation took $(dt) s")
-info("Saving to $(root)_rr.bin, $(root)_rn.bin")
+@info("Calulation took $(dt) s")
+@info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
 write("$(root)_rn.bin", rn)
 rr[1,:,:] *= 0.5
@@ -95,11 +95,11 @@ else
     sa += flipdim(sr, 1)
 end
 
-info("Saving rephasing spectrum to $(root)_sr.bin")
+@info("Saving rephasing spectrum to $(root)_sr.bin")
 write("$(root)_sr.bin", sr)
-info("Saving non-rephasing spectrum to $(root)_sn.bin")
+@info("Saving non-rephasing spectrum to $(root)_sn.bin")
 write("$(root)_sn.bin", sn)
-info("Saving absorptive spectrum to $(root)_sa.bin")
+@info("Saving absorptive spectrum to $(root)_sa.bin")
 write("$(root)_sa.bin", sa)
 
 end # function main

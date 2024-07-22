@@ -7,7 +7,7 @@ import YAML
 
 function run(args)
 cfg_f = args[1]
-info("Loading parameters from $cfg_f")
+@info("Loading parameters from $cfg_f")
 cfg = open(YAML.load, cfg_f)
 # load parameters
 root = cfg["rootname"]
