@@ -61,13 +61,13 @@ lineshape!(s, "f", "f", g_ff)
 # Everything is identical to 'basic_ia.jl' from now on.
 
 tg = TimeGrid(
-    linspace(0, t1_max, t1_n),
-    linspace(0, t2_max, t2_n),
-    linspace(0, t3_max, t3_n),
+    range(0, stop=t1_max, step=t1_n),
+    range(0, stop=t2_max, step=t2_n),
+    range(0, stop=t3_max, step=t3_n),
 )
 
 @info("Computing linear response")
-r_lin = linear(tg, s)
+r_lin = linear(tg, s) # TODO this is where it bugs because System does not have a length ...
 @info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 
