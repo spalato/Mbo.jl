@@ -4,7 +4,9 @@
 
 using Mbo     # using <module> loads functions directly, ie: `ev2angphz` or `R1`
 import DSP: fftfreq # use a specific function
-import YAML   # import <module> requires adding the module name, ie: `YAML.load`
+import YAML   # import <module> requires adding the module name, ie: YAML.load
+using IterTools
+using FFTW
 
 function run(args)
 # Use a main 'run' function. This is not mandatory, but is required for performance.
