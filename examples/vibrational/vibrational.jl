@@ -36,7 +36,7 @@ lineshape!(s, "a", "a", t->g_homo(t, γ)+g_inhomo(t, σ)+s_hr*g_huang_rhys(t, ω
 # Nothing has changed past that point!
 
 tg = TimeGrid(
-    range(0, stop=t1_max, length=t1_n), # TODO previously linspace
+    range(0, stop=t1_max, length=t1_n),
     range(0, stop=t2_max, length=t2_n),
     range(0, stop=t3_max, length=t3_n),
 )

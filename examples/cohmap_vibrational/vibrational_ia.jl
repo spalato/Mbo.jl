@@ -4,6 +4,8 @@
 using Mbo
 import DSP: fftfreq
 import YAML
+using FFTW
+using DelimitedFiles
 
 function run(args)
 cfg_f = args[1]
@@ -48,9 +50,9 @@ for tag1 in ["e", "f"], tag2 in ["e", "f"]
 end
 
 tg = TimeGrid(
-    linspace(0, t1_max, t1_n),
-    linspace(0, t2_max, t2_n),
-    linspace(0, t3_max, t3_n),
+    range(0, stop=t1_max, length=t1_n),
+    range(0, stop=t2_max, length=t2_n),
+    range(0, stop=t3_max, length=t3_n),
 )
 
 info("Computing linear response")
@@ -65,7 +67,7 @@ info("Saving linear spectrum to $(root)_slin.txt")
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 info("Computing third order response")
-tic()
+# tic()
 hpaths = collect(hilbert_paths(s, 3))
 rr = zeros(Complex128, size(tg))
 rn = zeros(Complex128, size(tg))
@@ -83,7 +85,7 @@ for p in hpaths
     end
 end
 
-dt = toq()
+# dt = toq()
 info("Calulation took $(dt) s")
 info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
