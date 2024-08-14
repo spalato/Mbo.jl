@@ -67,6 +67,7 @@ tg = TimeGrid(
 )
 
 @info("Computing linear response")
+@info(s)
 r_lin = linear(tg, s) # TODO this is where it bugs because System does not have a length ...
 @info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
@@ -110,9 +111,9 @@ sn = fftshift(ifft(rn, (1,3)), (1,3))
 
 sa = copy(sn)
 if iseven(size(sa, 1))
-    sa[2:end,:,:] += flipdim(sr[2:end,:,:], 1)
+    sa[2:end,:,:] += reverse(sr[2:end,:,:], dims=1)
 else
-    sa += flipdim(sr, 1)
+    sa += reverse(sr, dims=1)
 end
 
 info("Saving rephasing spectrum to $(root)_sr.bin")

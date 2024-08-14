@@ -16,7 +16,7 @@ function run(cfgf, root, outf)
     try
         spec_abs = Mmap.mmap(out, Array{Complex128, 3}, sz)
         spec_abs[:] = copy(s_n)
-        spec_abs[2:end,:,:] += flipdim(s_r[2:end,:,:], 1)
+        spec_abs[2:end,:,:] += reverse(s_r[2:end,:,:], dims=1)
     finally
         close(out)
         close(in_r)

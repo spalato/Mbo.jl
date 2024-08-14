@@ -74,9 +74,9 @@ sn = fftshift(ifft(rn, (1,3)), (1,3))
 
 sa = copy(sn)
 if iseven(size(sa, 1))
-    sa[2:end,:,:] += flipdim(sr[2:end,:,:], 1)
+    sa[2:end,:,:] += reverse(sr[2:end,:,:], dims=1)
 else
-    sa += flipdim(sr, 1)
+    sa += reverse(sr, dims=1)
 end
 
 @info("Saving rephasing spectrum to $(root)_sr.bin")
