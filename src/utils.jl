@@ -37,4 +37,4 @@ end
 
 # convenience
 """Squeeze all dimensions of length 1"""
-Base.dropdims(A::AbstractArray) = dropdims(A, tuple(find(size(A).==1)...))
+Base.dropdims(A::AbstractArray) = dropdims(A, dims=tuple(findall(size(A).==1)...))
