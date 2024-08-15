@@ -67,7 +67,7 @@ t0_calc = now()
 out_root = cfg["rootname"]
 
 # compute them separately
-totlin = zeros(Complex128, size(grd_lin))
+totlin = zeros(ComplexF64, size(grd_lin))
 for p in hilbert_paths(s, 1)
     rlin = linear(grd_lin, s, p)
     #writedlm(out_root*"_lin_$(p.p[2]).txt", [grid(grd_lin)[1] real(rlin) imag(rlin)])

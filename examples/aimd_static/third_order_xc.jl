@@ -65,7 +65,7 @@ t0_calc = now()
 out_root = "$(splitext(basename(states_fn))[1])_$(splitext(basename(cf_fn))[1])"
 
 # compute them separately
-totlin = zeros(Complex128, size(grd_lin))
+totlin = zeros(ComplexF64, size(grd_lin))
 for p in hilbert_paths(s, 1)
     rlin = linear(grd_lin, s, p)
     totlin += rlin
@@ -85,8 +85,8 @@ info("Saving rephasing to: $rr_fn")
 info("Saving nonrephasing to: $rr_fn")
 rr_out = open(rr_fn, "w+")
 rn_out = open(rn_fn, "w+")
-rr = Mmap.mmap(rr_out, Array{Complex128, 3}, size(grd_trd))
-rn = Mmap.mmap(rn_out, Array{Complex128, 3}, size(grd_trd))
+rr = Mmap.mmap(rr_out, Array{ComplexF64, 3}, size(grd_trd))
+rn = Mmap.mmap(rn_out, Array{ComplexF64, 3}, size(grd_trd))
 pm = Progress(4*length(collect(hilbert_paths(s, 3))))
 info("Computing third order response")
 t0_third = now()

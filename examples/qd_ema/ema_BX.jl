@@ -113,8 +113,8 @@ writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 # Rephasing induced absorption is given by R1* 
 # Nonrephasing IA is given by R2*
 # Should be streamlined...
-rr = zeros(Complex128, size(tg))
-rn = zeros(Complex128, size(tg))
+rr = zeros(ComplexF64, size(tg))
+rn = zeros(ComplexF64, size(tg))
 for hp in hilbert_paths(s, 3)
     # setting mu_bx=0 in the config file will skip the paths automatically
     @info("Path: $hp")
@@ -150,7 +150,7 @@ end
 write("$(root)_sr.bin", sr)
 @info("Saving non-rephasing spectrum to $(root)_sn.bin")
 write("$(root)_sn.bin", sn)
-info("Saving absorptive spectrum to $(root)_sa.bin")
+@info("Saving absorptive spectrum to $(root)_sa.bin")
 write("$(root)_sa.bin", sa)
 
 end # function main

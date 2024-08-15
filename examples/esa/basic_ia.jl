@@ -64,8 +64,8 @@ writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 @info("Computing third order response")
 # tic()
 hpaths = collect(hilbert_paths(s, 3))
-rr = zeros(Complex128, size(tg))
-rn = zeros(Complex128, size(tg))
+rr = zeros(ComplexF64, size(tg))
+rn = zeros(ComplexF64, size(tg))
 # Rephasing induced absorption is given by R1* 
 # Nonrephasing IA is given by R2*
 # Should be streamlined...
