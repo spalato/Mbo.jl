@@ -1,0 +1,13 @@
+rootname: od_slow  # control name of output files.
+e_frame: 1.0  # rotating frame frequency, eV
+e_a: 1.0  # energy of state a, eV
+gamma: 0.0005  # pure dephasing rate, eV
+sigma: 0.04  # inhomogeneous linewidth (gaussian), eV
+tau: 100 # correlation time, fs
+kt : 0.025 # kt in eV
+t1_n: 101  # number of time points along t1
+t2_n: 251  # number of time points along t2
+t3_n: 101  # number of time points along t2
+t1_max: 500  # max t1 value, fs
+t2_max: 500  # max t2 value, fs
+t3_max: 500  # max t2 value, fs
