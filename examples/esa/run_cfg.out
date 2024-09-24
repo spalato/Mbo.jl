@@ -1,0 +1,19 @@
+INFO: Loading parameters from C:\work\src\Mbo\examples\esa\basic_ia.yaml
+INFO: Setting up system
+INFO: Computing linear response
+INFO: Saving to basic_ia_rlin.txt
+INFO: Saving linear spectrum to basic_ia_slin.txt
+INFO: Computing third order response
+INFO: Calulation took 1.8506145 s
+INFO: Saving to basic_ia_rr.bin, basic_ia_rn.bin
+INFO: Saving rephasing spectrum to basic_ia_sr.bin
+INFO: Saving non-rephasing spectrum to basic_ia_sn.bin
+INFO: Saving absorptive spectrum to basic_ia_sa.bin
+C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  cfg = yaml.load(f)
+C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  cfg = yaml.load(f)
+C:\work\src\Mbo\examples\plot_2d.py:60: MatplotlibDeprecationWarning: shading='flat' when X and Y have the same dimensions as C is deprecated since 3.3.  Either specify the corners of the quadrilaterals with X and Y, or pass shading='auto', 'nearest' or 'gouraud', or set rcParams['pcolor.shading'].  This will become an error two minor releases later.
+  plt.pcolormesh(expand_axis(t_1), expand_axis(t_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
+C:\work\src\Mbo\examples\plot_2d.py:79: MatplotlibDeprecationWarning: shading='flat' when X and Y have the same dimensions as C is deprecated since 3.3.  Either specify the corners of the quadrilaterals with X and Y, or pass shading='auto', 'nearest' or 'gouraud', or set rcParams['pcolor.shading'].  This will become an error two minor releases later.
+  plt.pcolormesh(expand_axis(f_1), expand_axis(f_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)

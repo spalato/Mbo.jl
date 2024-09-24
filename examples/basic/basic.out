@@ -1,0 +1,11 @@
+INFO: Loading parameters from .\basic.yaml
+INFO: Setting up system
+INFO: Computing linear response
+INFO: Saving to basic_rlin.txt
+INFO: Saving linear spectrum to basic_slin.txt
+INFO: Computing third order response
+INFO: Saving to basic_rr.bin, basic_rn.bin
+INFO: Saving rephasing spectrum to basic_sr.bin
+INFO: Saving non-rephasing spectrum to basic_sn.bin
+INFO: Saving absorptive spectrum to basic_sa.bin
+Runtime (ms): 12414

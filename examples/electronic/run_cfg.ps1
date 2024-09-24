@@ -1,4 +1,7 @@
-$cfg="ecoh_uc.yaml"
+$cfg=$args
+if (!$cfg) {
+    $cfg=$(ls *.yaml)
+}
 julia ecoh.jl $cfg
 python ../plot_linear.py $cfg
 python ../plot_2d.py $cfg
