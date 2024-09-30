@@ -31,15 +31,15 @@ rootname = cfg["rootname"]
 f1 = fftshift(fftfreq(length(tg.times[1]), 1/diff(tg.times[1])[1]))
 f3 = fftshift(fftfreq(length(tg.times[3]), 1/diff(tg.times[3])[1]))
 
-rr = read(joinpath(dir, "$(rootname)_rr.bin"), ComplexF64, size(tg))
+rr = read(joinpath(dir, "$(rootname)_rr.bin"), Complex128, size(tg))
 sym_heatmap(tg.times[1], tg.times[3], real(rr[:,1,:]), "$(rootname)_rr.png")
-rn = read(joinpath(dir, "$(rootname)_rn.bin"), ComplexF64, size(tg))
+rn = read(joinpath(dir, "$(rootname)_rn.bin"), Complex128, size(tg))
 sym_heatmap(tg.times[1], tg.times[3], real(rn[:,1,:]), "$(rootname)_rn.png")
-sr = read(joinpath(dir, "$(rootname)_sr.bin"), ComplexF64, size(tg))
+sr = read(joinpath(dir, "$(rootname)_sr.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sr[:,1,:]), "$(rootname)_sr.png")
-sn = read(joinpath(dir, "$(rootname)_sn.bin"), ComplexF64, size(tg))
+sn = read(joinpath(dir, "$(rootname)_sn.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sn[:,1,:]), "$(rootname)_sn.png")
-sa = read(joinpath(dir, "$(rootname)_sa.bin"), ComplexF64, size(tg))
+sa = read(joinpath(dir, "$(rootname)_sa.bin"), Complex128, size(tg))
 sym_heatmap(f1, f3, real(sa[:,1,:]), "$(rootname)_sa.png")
 
 end

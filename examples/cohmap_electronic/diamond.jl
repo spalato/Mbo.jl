@@ -9,12 +9,10 @@
 using Mbo
 import DSP: fftfreq
 import YAML
-using FFTW
-using DelimitedFiles
 
 function run(args)
 cfg_f = args[1]
-@info("Loading parameters from $cfg_f")
+info("Loading parameters from $cfg_f")
 cfg = open(YAML.load, cfg_f)
 # load parameters
 root = cfg["rootname"]
@@ -39,7 +37,7 @@ t1_max = cfg["t1_max"]
 t2_max = cfg["t2_max"]
 t3_max = cfg["t3_max"]
 
-@info("Setting up system")
+info("Setting up system")
 s = System("g")
 energy!(s, "a", ωa)
 energy!(s, "b", ωb)
@@ -63,15 +61,14 @@ lineshape!(s, "f", "f", g_ff)
 # Everything is identical to 'basic_ia.jl' from now on.
 
 tg = TimeGrid(
-    range(0, stop=t1_max, length=t1_n),
-    range(0, stop=t2_max, length=t2_n),
-    range(0, stop=t3_max, length=t3_n),
+    linspace(0, t1_max, t1_n),
+    linspace(0, t2_max, t2_n),
+    linspace(0, t3_max, t3_n),
 )
 
-@info("Computing linear response")
-@info(s)
-r_lin = linear(tg, s) # TODO this is where it bugs because System does not have a length ...
-@info("Saving to $(root)_rlin.txt")
+info("Computing linear response")
+r_lin = linear(tg, s)
+info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 
 r_lin[1] *= 0.5
@@ -81,10 +78,10 @@ info("Saving linear spectrum to $(root)_slin.txt")
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 info("Computing third order response")
-# tic()
+tic()
 hpaths = collect(hilbert_paths(s, 3))
-rr = zeros(ComplexF64, size(tg))
-rn = zeros(ComplexF64, size(tg))
+rr = zeros(Complex128, size(tg))
+rn = zeros(Complex128, size(tg))
 # Rephasing ESA is given by R1* 
 # Nonrephasing ESA is given by R2*
 # Should be streamlined...
@@ -99,7 +96,7 @@ for p in hpaths
     end
 end
 
-# dt = toq()
+dt = toq()
 info("Calulation took $(dt) s")
 info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
@@ -113,9 +110,9 @@ sn = fftshift(ifft(rn, (1,3)), (1,3))
 
 sa = copy(sn)
 if iseven(size(sa, 1))
-    sa[2:end,:,:] += reverse(sr[2:end,:,:], dims=1)
+    sa[2:end,:,:] += flipdim(sr[2:end,:,:], 1)
 else
-    sa += reverse(sr, dims=1)
+    sa += flipdim(sr, 1)
 end
 
 info("Saving rephasing spectrum to $(root)_sr.bin")

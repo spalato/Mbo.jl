@@ -11,7 +11,7 @@ True if any element is identical to the next. Naive implementation
 consecutive(a) = any(a[2:end] .== a[1:end-1])
 
 """Hilbert Path of order N-2"""
-struct HilbertPath{N}
+immutable HilbertPath{N}
     p::NTuple{N,String}
 end
 HilbertPath(args::Vararg{String,N}) where {N} = HilbertPath{N}(args)

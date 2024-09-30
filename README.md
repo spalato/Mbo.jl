@@ -67,22 +67,7 @@ tell me if it breaks!)
 Once julia is installed, open `julia` and type:
 
 ```julia
-julia> ]
-```
-
-Then 
-```julia
-@v1.10 pkg> activate /path/to this repository/
-```
-Your terminal should then look like
-
-```julia
-Mbo.jl pkg>
-```
-Finally precompile the package with 
-
-```julia
-Mbo.jl pkg> precompile
+julia> Pkg.clone("https://github.com/spalato/Mbo.jl")
 ```
 
 Documentation

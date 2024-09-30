@@ -49,11 +49,9 @@ isground(s::System, tag) = tag == s.ground
 dipole(s::System, tag1, tag2) = s.dipoles[tag1, tag2]
 dipole!(s::System, tag1, tag2, v) = (s.dipoles[tag1,tag2]=v; s.dipoles[tag2,tag1]=v) 
 isallowed(s::System, tag1, tag2) = dipole(s, tag1, tag2) > 0
-# Note (s,) "protects" it from the broadcasting done by the .
-allallowed(s::System, tags) = all(isallowed.((s,), tags[2:end], tags[1:end-1]))
+allallowed(s::System, tags) = all(isallowed.(s, tags[2:end], tags[1:end-1]))
 allallowed(s::System, p::HilbertPath) = allallowed(s, p.p)
-# Note (s,) "protects" it from the broadcasting done by the .
-dipole(s::System, p::HilbertPath) = dipole.((s,), p.p[1:end-1], p.p[2:end])
+dipole(s::System, p::HilbertPath) = dipole.(s, p.p[1:end-1], p.p[2:end])
 amplitude(s::System, p::HilbertPath) = prod(dipole(s, p)) 
 
 # lineshapes

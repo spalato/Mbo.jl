@@ -13,9 +13,8 @@ function simps(y, h::Number)
     s = sum(y[1:2:n] + 4y[2:2:n]+y[3:2:n+1])
     h/3*s + tail
 end
-#simps(y, h::Base.TwicePrecision{T}) where {T<:AbstractFloat} = simps(y, h.hi)
-
-simps(y, x::AbstractRange{T}) where {T} = simps(y, step(x))
+#simps(y, h::Base.TwicePrecision{T}) where {T<:AbstractFloat} = simps(y, h.hi) 
+simps(y, x::Range{T}) where {T} = simps(y, step(x))
 
 """
 Sum a series until convergence.
@@ -37,4 +36,4 @@ end
 
 # convenience
 """Squeeze all dimensions of length 1"""
-Base.dropdims(A::AbstractArray) = dropdims(A, dims=tuple(findall(size(A).==1)...))
+Base.squeeze(A::AbstractArray) = squeeze(A, tuple(find(size(A).==1)...))
