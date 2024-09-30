@@ -15,7 +15,7 @@ end
 function run(args)
 t0 = now()
 cfgf = args[1]
-info("Loading parameters from $(cfgf)")
+@info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
 root = cfg["rootname"]
 states_fn = cfg["states_fn"]
@@ -26,17 +26,17 @@ t2 = convert.(Float64, cfg["t2"])
 t3 = convert.(Float64, cfg["t3"])
 σ = cfg["sigma"]
 
-info("Loading energies from $states_fn")
+@info("Loading energies from $states_fn")
 states = readdlm(states_fn)
 energies = states[:,1]
 tdm = states[:,2]
-info("States count: $(size(states)[1])")
-info("Loading CF from $cf_fn")
+@info("States count: $(size(states)[1])")
+@info("Loading CF from $cf_fn")
 cfs = parse_cf(cf_fn)
-info("CF count: $(length(cfs))")
+@info("CF count: $(length(cfs))")
 
 # build system
-info("Building system...")
+@info("Building system...")
 t0_sys = now()
 s = System("G")
 frame = ev2angphz(cfg["e_frame"])
@@ -53,24 +53,24 @@ for (i, j) in keys(cfs)
     lut = LineshapeLUT(t->(GriddedCF(cfs[i,j], 1.0)(t)+g_inhomo(t, ev2angphz(σ))), lut_grid)
     lineshape!(s, ti, tj, lut)
 end
-info("    Took $(now()-t0_sys)")
-info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
-info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
+@info("    Took $(now()-t0_sys)")
+@info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
+@info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
-info("Preparing calculation of third order response")
+@info("Preparing calculation of third order response")
 grd_trd = TimeGrid(t1, t2, t3)
-info("Grid size: $(size(grd_trd))")
+@info("Grid size: $(size(grd_trd))")
 
 rr_fn = root*"_rr.bin"
 rn_fn = root*"_rn.bin"
-info("Saving rephasing to: $rr_fn")
-info("Saving nonrephasing to: $rr_fn")
+@info("Saving rephasing to: $rr_fn")
+@info("Saving nonrephasing to: $rr_fn")
 rr_out = open(rr_fn, "w+")
 rn_out = open(rn_fn, "w+")
-rr = Mmap.mmap(rr_out, Array{Complex128, 3}, size(grd_trd))
-rn = Mmap.mmap(rn_out, Array{Complex128, 3}, size(grd_trd))
+rr = Mmap.mmap(rr_out, Array{ComplexF64, 3}, size(grd_trd))
+rn = Mmap.mmap(rn_out, Array{ComplexF64, 3}, size(grd_trd))
 pm = Progress(4*length(collect(hilbert_paths(s, 3))))
-info("Computing third order response")
+@info("Computing third order response")
 t0_third = now()
 rr .+= R2(grd_trd, s, pm)
 rr .+= R3(grd_trd, s, pm)

@@ -2,7 +2,7 @@
 export GriddedCF
 
 # externally computed on a constant grid. Allow specific points only.
-immutable GriddedCF{Tg<:Real, Tcf<:Number}
+struct   GriddedCF{Tg<:Real, Tcf<:Number}
     lut::Array{Tcf,1}
     Im::Tcf
     dt::Tg

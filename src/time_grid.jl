@@ -16,7 +16,7 @@ Base.size(tg::TimeGrid) = map(length, tg.times)
 # to find a greater common divisor (gcd) for floats:
 # https://www.geeksforgeeks.org/program-find-gcd-floating-point-numbers/
 
-t_to_f(t::Range) = fftshift(fftfreq(length(t), 1/step(t)))
+t_to_f(t::AbstractRange) = fftshift(fftfreq(length(t), 1/step(t)))
 # use mean step. Hopefully doesn't matter.
 t_to_f(t::AbstractArray{<:Real, 1}) = fftshift(fftfreq(length(t), 1/mean(diff(t))))
 """

@@ -10,13 +10,13 @@ function run(cfgf, root, outf)
     inf_n = root*"_sn.bin"
     in_r = open(inf_r, "r+")
     in_n = open(inf_n, "r+")
-    s_r = Mmap.mmap(in_r, Array{Complex128, 3}, sz)
-    s_n = Mmap.mmap(in_n, Array{Complex128, 3}, sz)
+    s_r = Mmap.mmap(in_r, Array{ComplexF64, 3}, sz)
+    s_n = Mmap.mmap(in_n, Array{ComplexF64, 3}, sz)
     out = open(outf, "w+")
     try
-        spec_abs = Mmap.mmap(out, Array{Complex128, 3}, sz)
+        spec_abs = Mmap.mmap(out, Array{ComplexF64, 3}, sz)
         spec_abs[:] = copy(s_n)
-        spec_abs[2:end,:,:] += flipdim(s_r[2:end,:,:], 1)
+        spec_abs[2:end,:,:] += reverse(s_r[2:end,:,:], dims=1)
     finally
         close(out)
         close(in_r)

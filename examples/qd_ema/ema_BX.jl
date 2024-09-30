@@ -3,10 +3,12 @@
 using Mbo
 import DSP: fftfreq
 import YAML
+using FFTW
+using DelimitedFiles
 
 function run(args)
 cfg_f = args[1]
-info("Loading parameters from $cfg_f")
+@info("Loading parameters from $cfg_f")
 cfg = open(YAML.load, cfg_f)
 # load parameters
 root = cfg["rootname"]
@@ -53,7 +55,7 @@ t1_max = cfg["t1_max"]
 t2_max = cfg["t2_max"]
 t3_max = cfg["t3_max"]
 
-info("Setting up system")
+@info("Setting up system")
 s = System("g")
 for tag1 in ["x1", "x2"], tag2 in ["x1", "x2"]
     energy!(s, tag1, ev2angphz(cfg["e_$(tag1)"]) - ω_frame)
@@ -81,12 +83,12 @@ for tag1=["bx11", "bx12", "bx22"], tag2=["bx11", "bx12", "bx22"]
 end
 
 tg = TimeGrid(
-    linspace(0, t1_max, t1_n),
-    linspace(0, t2_max, t2_n),
-    linspace(0, t3_max, t3_n),
+    range(0, stop=t1_max, length=t1_n),
+    range(0, stop=t2_max, length=t2_n),
+    range(0, stop=t3_max, length=t3_n),
 )
 steps = map(first ∘ diff, tg.times)
-info("Grid steps: $(steps)")
+@info("Grid steps: $(steps)")
 # We cache the value of the lineshape functions on a look-up table.
 lut_step = 1.0
 @assert all([rem(s, lut_step)==0 for s in steps])
@@ -95,27 +97,27 @@ for (tag1, tag2) in keys(g)
     lineshape!(s, tag1, tag2, LineshapeLUT(g[tag1, tag2].(lut_grid), step(lut_grid)))
 end
 
-info("Computing linear response")
+@info("Computing linear response")
 r_lin = linear(tg, s)
-info("Saving to $(root)_rlin.txt")
+@info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 
 r_lin[1] *= 0.5
 s_lin = fftshift(ifft(r_lin))
 f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
-info("Saving linear spectrum to $(root)_slin.txt")
+@info("Saving linear spectrum to $(root)_slin.txt")
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
-info("Computing third order response")
-tic()
+@info("Computing third order response")
+# tic()
 # Rephasing induced absorption is given by R1* 
 # Nonrephasing IA is given by R2*
 # Should be streamlined...
-rr = zeros(Complex128, size(tg))
-rn = zeros(Complex128, size(tg))
+rr = zeros(ComplexF64, size(tg))
+rn = zeros(ComplexF64, size(tg))
 for hp in hilbert_paths(s, 3)
     # setting mu_bx=0 in the config file will skip the paths automatically
-    info("Path: $hp") 
+    @info("Path: $hp")
     if hp.p[3] in ["bx12", "bx11", "bx22"] # is ESA
         rr += -conj(R1(tg, s, hp))
         rn += -conj(R2(tg, s, hp))
@@ -125,9 +127,9 @@ for hp in hilbert_paths(s, 3)
         rn += R1(tg, s, hp) + R4(tg, s, hp)
     end
 end
-dt = toq()
-info("Calulation took $(dt) s")
-info("Saving to $(root)_rr.bin, $(root)_rn.bin")
+# dt = toq()
+#@info("Calulation took $(dt) s")
+@info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
 write("$(root)_rn.bin", rn)
 rr[1,:,:] *= 0.5
@@ -139,16 +141,16 @@ sn = fftshift(ifft(rn, (1,3)), (1,3))
 
 sa = copy(sn)
 if iseven(size(sa, 1))
-    sa[2:end,:,:] += flipdim(sr[2:end,:,:], 1)
+    sa[2:end,:,:] += reverse(sr[2:end,:,:], dims=1)
 else
-    sa += flipdim(sr, 1)
+    sa += reverse(sr, dims=1)
 end
 
-info("Saving rephasing spectrum to $(root)_sr.bin")
+@info("Saving rephasing spectrum to $(root)_sr.bin")
 write("$(root)_sr.bin", sr)
-info("Saving non-rephasing spectrum to $(root)_sn.bin")
+@info("Saving non-rephasing spectrum to $(root)_sn.bin")
 write("$(root)_sn.bin", sn)
-info("Saving absorptive spectrum to $(root)_sa.bin")
+@info("Saving absorptive spectrum to $(root)_sa.bin")
 write("$(root)_sa.bin", sa)
 
 end # function main

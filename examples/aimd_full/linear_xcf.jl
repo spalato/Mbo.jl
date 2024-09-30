@@ -16,7 +16,7 @@ end
 function run(args)
 t0 = now()
 cfgf = args[1]
-info("Loading parameters from $(cfgf)")
+@info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
 states_fn = cfg["states_fn"]
 cf_fn = cfg["cf_fn"]
@@ -26,17 +26,17 @@ t2 = convert.(Float64, cfg["t2"])
 t3 = convert.(Float64, cfg["t3"])
 σ = cfg["sigma"]
 
-info("Loading energies from $states_fn")
+@info("Loading energies from $states_fn")
 states = readdlm(states_fn)
 energies = states[:,1]
 tdm = states[:,2]
-info("States count: $(size(states)[1])")
-info("Loading CF from $cf_fn")
+@info("States count: $(size(states)[1])")
+@info("Loading CF from $cf_fn")
 cfs = parse_cf(cf_fn)
-info("CF count: $(length(cfs))")
+@info("CF count: $(length(cfs))")
 
 # build system
-info("Building system...")
+@info("Building system...")
 t0_sys = now()
 s = System("G")
 #energy!(s, "G", 0)
@@ -57,9 +57,9 @@ for (i, j) in keys(cfs)
     lut = LineshapeLUT(t->(GriddedCF(cfs[i,j], dt)(t)+g_inhomo(t, ev2angphz(σ))), lut_grid)
     lineshape!(s, ti, tj, lut)
 end
-info("    Took $(now()-t0_sys)")
-info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
-info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
+@info("    Took $(now()-t0_sys)")
+@info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
+@info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
 grd_lin = TimeGrid(t1)
 
@@ -67,23 +67,23 @@ t0_calc = now()
 out_root = cfg["rootname"]
 
 # compute them separately
-totlin = zeros(Complex128, size(grd_lin))
+totlin = zeros(ComplexF64, size(grd_lin))
 for p in hilbert_paths(s, 1)
     rlin = linear(grd_lin, s, p)
     #writedlm(out_root*"_lin_$(p.p[2]).txt", [grid(grd_lin)[1] real(rlin) imag(rlin)])
     totlin += rlin
 end
-info("Saving to $(out_root)_rlin.txt")
+@info("Saving to $(out_root)_rlin.txt")
 writedlm("$(out_root)_rlin.txt", [grid(grd_lin)[1] real(totlin) imag(totlin)])
 
 totlin[1] *= 0.5
 s_lin = fftshift(ifft(totlin))
 f_lin = fftshift(fftfreq(size(grd_lin)[1], 1/(grd_lin.times[1][2]-grd_lin.times[1][1])))
-info("Saving linear spectrum to $(out_root)_slin.txt")
+@info("Saving linear spectrum to $(out_root)_slin.txt")
 writedlm("$(out_root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
-info("    Took $(now()-t0_calc)")
-info("Total runtime: $(now()-t0)")
+@info("    Took $(now()-t0_calc)")
+@info("Total runtime: $(now()-t0)")
 end # run
 
 run(ARGS)
