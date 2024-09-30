@@ -4,7 +4,7 @@ INFO: Computing linear response
 INFO: Saving to ecoh_rlin.txt
 INFO: Saving linear spectrum to ecoh_slin.txt
 INFO: Computing third order response
-INFO: Calulation took 46.170928399 s
+INFO: Calulation took 45.4109812 s
 INFO: Saving to ecoh_rr.bin, ecoh_rn.bin
 INFO: Saving rephasing spectrum to ecoh_sr.bin
 INFO: Saving non-rephasing spectrum to ecoh_sn.bin

@@ -9,7 +9,7 @@ INFO: Path: <g,x1,g,x1,g>
 INFO: Path: <g,x2,g,x1,g>
 INFO: Path: <g,x1,g,x2,g>
 INFO: Path: <g,x2,g,x2,g>
-INFO: Calulation took 67.301850899 s
+INFO: Calulation took 69.612030399 s
 INFO: Saving to ema_rr.bin, ema_rn.bin
 INFO: Saving rephasing spectrum to ema_sr.bin
 INFO: Saving non-rephasing spectrum to ema_sn.bin
@@ -43,7 +43,7 @@ INFO: Path: <g,x2,bx12,x2,g>
 INFO: Path: <g,x1,g,x2,g>
 INFO: Path: <g,x2,g,x2,g>
 INFO: Path: <g,x2,bx22,x2,g>
-INFO: Calulation took 142.9215442 s
+INFO: Calulation took 142.96911 s
 INFO: Saving to ema_BX_rr.bin, ema_BX_rn.bin
 INFO: Saving rephasing spectrum to ema_BX_sr.bin
 INFO: Saving non-rephasing spectrum to ema_BX_sn.bin

@@ -12,7 +12,7 @@ INFO: <g,b,f,a,g>
 INFO: <g,a,f,a,g>
 INFO: <g,b,g,a,g>
 INFO: <g,a,g,a,g>
-INFO: Calulation took 547.540065001 s
+INFO: Calulation took 563.2671239 s
 INFO: Saving to diamond_rr.bin, diamond_rn.bin
 INFO: Saving rephasing spectrum to diamond_sr.bin
 INFO: Saving non-rephasing spectrum to diamond_sn.bin

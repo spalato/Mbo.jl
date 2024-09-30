@@ -5,7 +5,7 @@ INFO: Saving to vibrational_rlin.txt
 INFO: Saving linear spectrum to vibrational_slin.txt
 INFO: Computing third order response
 INFO: Saving to vibrational_rr.bin, vibrational_rn.bin
-INFO: Calulation took 11.9622338 s
+INFO: Calulation took 11.5581883 s
 INFO: Saving rephasing spectrum to vibrational_sr.bin
 INFO: Saving non-rephasing spectrum to vibrational_sn.bin
 INFO: Saving absorptive spectrum to vibrational_sa.bin
@@ -24,7 +24,7 @@ INFO: Saving to wavepacket_rlin.txt
 INFO: Saving linear spectrum to wavepacket_slin.txt
 INFO: Computing third order response
 INFO: Saving to wavepacket_rr.bin, wavepacket_rn.bin
-INFO: Calulation took 11.4622618 s
+INFO: Calulation took 11.9112495 s
 INFO: Saving rephasing spectrum to wavepacket_sr.bin
 INFO: Saving non-rephasing spectrum to wavepacket_sn.bin
 INFO: Saving absorptive spectrum to wavepacket_sa.bin

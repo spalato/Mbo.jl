@@ -1,14 +1,14 @@
-INFO: Loading parameters from C:\work\src\Mbo\examples\esa\basic_ia.yaml
+INFO: Loading parameters from C:\work\src\Mbo\examples\od_slow\od_slow.yaml
 INFO: Setting up system
 INFO: Computing linear response
-INFO: Saving to basic_ia_rlin.txt
-INFO: Saving linear spectrum to basic_ia_slin.txt
+INFO: Saving to od_slow_rlin.txt
+INFO: Saving linear spectrum to od_slow_slin.txt
 INFO: Computing third order response
-INFO: Calulation took 1.698088799 s
-INFO: Saving to basic_ia_rr.bin, basic_ia_rn.bin
-INFO: Saving rephasing spectrum to basic_ia_sr.bin
-INFO: Saving non-rephasing spectrum to basic_ia_sn.bin
-INFO: Saving absorptive spectrum to basic_ia_sa.bin
+INFO: Saving to od_slow_rr.bin, od_slow_rn.bin
+INFO: Calulation took 12.5077759 s
+INFO: Saving rephasing spectrum to od_slow_sr.bin
+INFO: Saving non-rephasing spectrum to od_slow_sn.bin
+INFO: Saving absorptive spectrum to od_slow_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
