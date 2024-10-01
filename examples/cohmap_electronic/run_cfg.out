@@ -1,22 +1,22 @@
-INFO: Loading parameters from C:\work\src\Mbo\examples\cohmap_electronic\diamond.yaml
-INFO: Setting up system
-INFO: Computing linear response
-INFO: Saving to diamond_rlin.txt
-INFO: Saving linear spectrum to diamond_slin.txt
-INFO: Computing third order response
-INFO: <g,b,f,b,g>
-INFO: <g,a,f,b,g>
-INFO: <g,b,g,b,g>
-INFO: <g,a,g,b,g>
-INFO: <g,b,f,a,g>
-INFO: <g,a,f,a,g>
-INFO: <g,b,g,a,g>
-INFO: <g,a,g,a,g>
-INFO: Calulation took 563.2671239 s
-INFO: Saving to diamond_rr.bin, diamond_rn.bin
-INFO: Saving rephasing spectrum to diamond_sr.bin
-INFO: Saving non-rephasing spectrum to diamond_sn.bin
-INFO: Saving absorptive spectrum to diamond_sa.bin
+[ Info: Loading parameters from C:\work\src\Mbo\examples\cohmap_electronic\diamond.yaml
+[ Info: Setting up system
+[ Info: Computing linear response
+[ Info: Saving to diamond_rlin.txt
+[ Info: Saving linear spectrum to diamond_slin.txt
+[ Info: Computing third order response
+[ Info: <g,b,f,b,g>
+[ Info: <g,a,f,b,g>
+[ Info: <g,b,g,b,g>
+[ Info: <g,a,g,b,g>
+[ Info: <g,b,f,a,g>
+[ Info: <g,a,f,a,g>
+[ Info: <g,b,g,a,g>
+[ Info: <g,a,g,a,g>
+[ Info: Calulation took 49.95299983024597 s
+[ Info: Saving to diamond_rr.bin, diamond_rn.bin
+[ Info: Saving rephasing spectrum to diamond_sr.bin
+[ Info: Saving non-rephasing spectrum to diamond_sn.bin
+[ Info: Saving absorptive spectrum to diamond_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
@@ -25,7 +25,3 @@ C:\work\src\Mbo\examples\plot_2d.py:60: MatplotlibDeprecationWarning: shading='f
   plt.pcolormesh(expand_axis(t_1), expand_axis(t_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
 C:\work\src\Mbo\examples\plot_2d.py:79: MatplotlibDeprecationWarning: shading='flat' when X and Y have the same dimensions as C is deprecated since 3.3.  Either specify the corners of the quadrilaterals with X and Y, or pass shading='auto', 'nearest' or 'gouraud', or set rcParams['pcolor.shading'].  This will become an error two minor releases later.
   plt.pcolormesh(expand_axis(f_1), expand_axis(f_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
-Traceback (most recent call last):
-  File "C:\work\src\Mbo\examples\cohmap_electronic\cohmap_electronic.py", line 13, in <module>
-    from analysis2d.plot_utils import plot_2d
-ModuleNotFoundError: No module named 'analysis2d'

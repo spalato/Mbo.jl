@@ -1,8 +1,12 @@
 import YAML
 using Mbo
 using ProgressMeter
+using Printf
+using FFTW
+using DelimitedFiles
+using Mmap
 
-tag(i) = @sprintf "X%02d" i
+tag(i) = @sprintf("X%02d",i)
 function parse_cf(fn)
     dat = readdlm(fn)
     cf = Dict{NTuple{2,Int},Array{<:Real,1}}()
@@ -13,7 +17,7 @@ function parse_cf(fn)
 end
 
 function run(args)
-t0 = now()
+t0 = time()
 cfgf = args[1]
 @info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
@@ -37,7 +41,7 @@ cfs = parse_cf(cf_fn)
 
 # build system
 @info("Building system...")
-t0_sys = now()
+t0_sys = time()
 s = System("G")
 frame = ev2angphz(cfg["e_frame"])
 lut_grid = 0.0:1.0:sum(map(maximum, (t1, t2, t3)))
@@ -53,7 +57,7 @@ for (i, j) in keys(cfs)
     lut = LineshapeLUT(t->(GriddedCF(cfs[i,j], 1.0)(t)+g_inhomo(t, ev2angphz(σ))), lut_grid)
     lineshape!(s, ti, tj, lut)
 end
-@info("    Took $(now()-t0_sys)")
+@info("    Took $(time()-t0_sys)")
 @info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
 @info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
@@ -71,15 +75,15 @@ rr = Mmap.mmap(rr_out, Array{ComplexF64, 3}, size(grd_trd))
 rn = Mmap.mmap(rn_out, Array{ComplexF64, 3}, size(grd_trd))
 pm = Progress(4*length(collect(hilbert_paths(s, 3))))
 @info("Computing third order response")
-t0_third = now()
+t0_third = time()
 rr .+= R2(grd_trd, s, pm)
 rr .+= R3(grd_trd, s, pm)
 rn .+= R1(grd_trd, s, pm)
 rn .+= R4(grd_trd, s, pm)
-info("    Took $(now()-t0_third)")
+@info("    Took $(time()-t0_third)")
 close(rr_out)
 close(rn_out)
-info("Total runtime: $(now()-t0)")
+@info("Total runtime: $(time()-t0)")
 end # run
 
 run(ARGS)

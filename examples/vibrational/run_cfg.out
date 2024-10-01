@@ -1,14 +1,14 @@
-INFO: Loading parameters from C:\work\src\Mbo\examples\vibrational\vibrational.yaml
-INFO: Setting up system
-INFO: Computing linear response
-INFO: Saving to vibrational_rlin.txt
-INFO: Saving linear spectrum to vibrational_slin.txt
-INFO: Computing third order response
-INFO: Saving to vibrational_rr.bin, vibrational_rn.bin
-INFO: Calulation took 11.5581883 s
-INFO: Saving rephasing spectrum to vibrational_sr.bin
-INFO: Saving non-rephasing spectrum to vibrational_sn.bin
-INFO: Saving absorptive spectrum to vibrational_sa.bin
+[ Info: Loading parameters from C:\work\src\Mbo\examples\vibrational\vibrational.yaml
+[ Info: Setting up system
+[ Info: Computing linear response
+[ Info: Saving to vibrational_rlin.txt
+[ Info: Saving linear spectrum to vibrational_slin.txt
+[ Info: Computing third order response
+[ Info: Saving to vibrational_rr.bin, vibrational_rn.bin
+[ Info: Calulation took 11.073999881744385 s
+[ Info: Saving rephasing spectrum to vibrational_sr.bin
+[ Info: Saving non-rephasing spectrum to vibrational_sn.bin
+[ Info: Saving absorptive spectrum to vibrational_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
@@ -17,17 +17,17 @@ C:\work\src\Mbo\examples\plot_2d.py:60: MatplotlibDeprecationWarning: shading='f
   plt.pcolormesh(expand_axis(t_1), expand_axis(t_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
 C:\work\src\Mbo\examples\plot_2d.py:79: MatplotlibDeprecationWarning: shading='flat' when X and Y have the same dimensions as C is deprecated since 3.3.  Either specify the corners of the quadrilaterals with X and Y, or pass shading='auto', 'nearest' or 'gouraud', or set rcParams['pcolor.shading'].  This will become an error two minor releases later.
   plt.pcolormesh(expand_axis(f_1), expand_axis(f_3), z.T, cmap=plt.cm.seismic, vmin=-lim, vmax=lim)
-INFO: Loading parameters from C:\work\src\Mbo\examples\vibrational\wavepacket.yaml
-INFO: Setting up system
-INFO: Computing linear response
-INFO: Saving to wavepacket_rlin.txt
-INFO: Saving linear spectrum to wavepacket_slin.txt
-INFO: Computing third order response
-INFO: Saving to wavepacket_rr.bin, wavepacket_rn.bin
-INFO: Calulation took 11.9112495 s
-INFO: Saving rephasing spectrum to wavepacket_sr.bin
-INFO: Saving non-rephasing spectrum to wavepacket_sn.bin
-INFO: Saving absorptive spectrum to wavepacket_sa.bin
+[ Info: Loading parameters from C:\work\src\Mbo\examples\vibrational\wavepacket.yaml
+[ Info: Setting up system
+[ Info: Computing linear response
+[ Info: Saving to wavepacket_rlin.txt
+[ Info: Saving linear spectrum to wavepacket_slin.txt
+[ Info: Computing third order response
+[ Info: Saving to wavepacket_rr.bin, wavepacket_rn.bin
+[ Info: Calulation took 11.101999998092651 s
+[ Info: Saving rephasing spectrum to wavepacket_sr.bin
+[ Info: Saving non-rephasing spectrum to wavepacket_sn.bin
+[ Info: Saving absorptive spectrum to wavepacket_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.

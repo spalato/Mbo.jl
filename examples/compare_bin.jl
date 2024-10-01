@@ -26,9 +26,9 @@ for sig in ["rr", "rn"]
     read!(joinpath(dir, "$(rootname)_$(sig).bin.ref06"), ref)
 
     if all(isapprox.(data, ref))
-        @info "$(cfgf) ok       abs:$(maximum(abs.(data-ref)))"  
+        @info "$(cfgf) $(sig) ok       abs:$(maximum(abs.(data-ref)))"  
     else
-        @info "$(cfgf) DIFF!!!  abs:$(maximum(abs.(data-ref)))"
+        @info "$(cfgf) $(sig) DIFF!!!  abs:$(maximum(abs.(data-ref)))"
     end
 end
 

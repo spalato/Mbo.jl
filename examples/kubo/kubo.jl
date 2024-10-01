@@ -82,4 +82,4 @@ write("$(root)_sa.bin", sa)
 
 end # function main
 
-run(ARGS) # pass in command line arguments to our 'run' function
+run(ARGS) # pass in command

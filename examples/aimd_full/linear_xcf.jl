@@ -2,8 +2,11 @@ import YAML
 using Mbo
 using ProgressMeter
 import DSP: fftfreq
+using Printf
+using FFTW
+using DelimitedFiles
 
-tag(i) = @sprintf "X%02d" i
+tag(i) = @sprintf("X%02d", i)
 function parse_cf(fn)
     dat = readdlm(fn)
     cf = Dict{NTuple{2,Int},Array{<:Real,1}}()
@@ -14,7 +17,7 @@ function parse_cf(fn)
 end
 
 function run(args)
-t0 = now()
+t0 = time()
 cfgf = args[1]
 @info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
@@ -37,7 +40,7 @@ cfs = parse_cf(cf_fn)
 
 # build system
 @info("Building system...")
-t0_sys = now()
+t0_sys = time()
 s = System("G")
 #energy!(s, "G", 0)
 #push!(s.grounds, "G")
@@ -57,13 +60,13 @@ for (i, j) in keys(cfs)
     lut = LineshapeLUT(t->(GriddedCF(cfs[i,j], dt)(t)+g_inhomo(t, ev2angphz(σ))), lut_grid)
     lineshape!(s, ti, tj, lut)
 end
-@info("    Took $(now()-t0_sys)")
+@info("    Took $(time()-t0_sys)")
 @info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
 @info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
 grd_lin = TimeGrid(t1)
 
-t0_calc = now()
+t0_calc = time()
 out_root = cfg["rootname"]
 
 # compute them separately
@@ -82,8 +85,8 @@ f_lin = fftshift(fftfreq(size(grd_lin)[1], 1/(grd_lin.times[1][2]-grd_lin.times[
 @info("Saving linear spectrum to $(out_root)_slin.txt")
 writedlm("$(out_root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
-@info("    Took $(now()-t0_calc)")
-@info("Total runtime: $(now()-t0)")
+@info("    Took $(time()-t0_calc)")
+@info("Total runtime: $(time()-t0)")
 end # run
 
 run(ARGS)
