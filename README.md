@@ -3,7 +3,7 @@ Mbo.jl - Multimode Brownian Oscillator
 
 Semiclassical modeling of non-linear spectra in the time domain using the
 Multimode Brownian Oscillator model. Designed for the modeling of 2D
-visible spectra. Hopefully fast, hopefully easy to use.
+visible spectra. Hopefully fast.
 
 Description
 -----------
@@ -20,12 +20,16 @@ For example:
 # build a system. It's still a bit tedious, but that's where the thinking happens.
 using Mbo
 s = System("g") # use "g" as a ground state
-# Set energy and transition dipole moment
-energy!(s, "e", ev2angphz(1.5))  # use angular PHz
+# Add a state of energy of state "e" is 1.5 eV, which we need to convert
+# to angular PHz
+energy!(s, "e", ev2angphz(1.5))  
+# Set transition dipole moment of the g->e transition
 dipole!(s, "g", "e", 1.0)
 
-# Define a lineshape functions (some common cases are supplied).
+# Define a lineshape functions. Here, 0.02 t + (0.02 t)^2/2
+# Most common cases are supplied. 
 ls(t) = ev2angphz(0.02)*t + 0.5*(ev2angphz(0.02)*t)^2
+# Set the function `ls(t)` as the lineshape for the e-e response.
 lineshape!(s, "e", "e", ls)
 
 # calculation grid, in fs. tedious bookkeeping done by the code.
@@ -61,8 +65,7 @@ You'll need it, but it is easy to install.
 `Matlab` or `python` while providing performance typical of compiled languages
 such as `Fortran` or `C`. Hopefully, the language is easy to pick up for anyone
 familiar with any of these. Julia is available for Windows, Mac, Linux. Get it
-from [here](https://julialang.org/downloads/) (v0.7 or later untested. Please
-tell me if it breaks!)
+from [here](https://julialang.org/downloads/). 
 
 Once julia is installed, open `julia` and type:
 
@@ -85,6 +88,11 @@ Finally precompile the package with
 Mbo.jl pkg> precompile
 ```
 
+The initial version of this code (up to `Mbo.jl v1.0`) was written for 
+`julia v0.6`, which was never intended for long-term support. The current 
+version of `Mbo.jl` has been updated to work with `julia v1.10`. For upgrading
+your scripts, see the [migration guide](migration_guide.md).
+
 Documentation
 ============
 The main element of this package is the `System` object, which contains all the
@@ -106,7 +114,7 @@ When multiple states are involved, different transition dipole operators can be
 involved in the third order response, and thus in the 4-point correlation
 function. A given combination of 4 transition dipole operator
 take the system through up to 4 spectroscopically coupled states. The path the 
-system takes through it's manifold of states is called here a Hilbert Path.
+system takes through its manifold of states is called here a Hilbert Path.
 As previously mentionned, each of these Hilbert paths gives rise to 4 
 double-sided Feynmann diagrams.
 
@@ -134,8 +142,11 @@ modify the `System` object end with `!` (this is purely a `julia` convention,
 `!` has no special meaning).  States are indexed by case-sensitive strings.
 You can use "G", "X1", "S+3/2L", as you wish.
 
-Setting and reading state energies and transition dipoles are rather
-straightforward. No implicit unit conversions are made.
+Setting and reading state energies and transition dipoles is rather
+straightforward. No implicit unit conversions are made, it's up to the user
+to ensure the proper units are supplied. The code expects energies
+to be supplied as angular frequencies, inverse of your time units. If you use a
+time grid in fs, you should supply energies in angular PHz.
 ```julia
 using Mbo
 # use "g" as a ground state with energy 0
@@ -143,8 +154,8 @@ s = System("g")
 @assert "g" in states(s) # use the @assert macro for simple tests
 @assert energy(s, "g") == 0
 # set energies in angular frequencies, inverse of your time axis (PHz for fs)
-energy!(s, "x1", 1.2)
-energy!(s, "x2", 1.4)
+energy!(s, "x1", 1.2) # x1 has ω = 1.2 ang PHz
+energy!(s, "x2", 1.4) # x2 has ω = 1.4 ang PHz
 # read energies:
 @assert energy(s, "x2")-energy(s, "x1") == 1.4-1.2
 @assert length(states(s)) == 3
@@ -270,7 +281,7 @@ can't achieve what you want? Lost and confused? Anything works.
 TODO
 ====
 - [x] Handle ground states easily. (Default lineshape functions in case they're missing)
-- [ ] Compilation to LUT
+- [x] Compilation to LUT
 - [ ] Add rotating frames properly.
 - [ ] Add automatic rephasing vs non-rephasing (`rephasing(grid,system)`).
 - [ ] Convenience for zeroing transition dipole moments (`forbidden`?)
