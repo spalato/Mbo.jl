@@ -1,0 +1,49 @@
+[ Info: C:\work\src\Mbo\examples\aimd_full\cfg_0_10.yaml rr ok       abs=1.709765e-14
+[ Info: C:\work\src\Mbo\examples\aimd_full\cfg_0_10.yaml rn ok       abs=1.986648e-14
+[ Info: C:\work\src\Mbo\examples\aimd_static\cfg_0_10.yaml rr ok       abs=4.440892e-16
+[ Info: C:\work\src\Mbo\examples\aimd_static\cfg_0_10.yaml rn ok       abs=4.440892e-16
+[ Info: C:\work\src\Mbo\examples\basic\basic.yaml rr ok       abs=5.551115e-17
+[ Info: C:\work\src\Mbo\examples\basic\basic.yaml rn ok       abs=5.551115e-17
+[ Info: C:\work\src\Mbo\examples\cohmap_electronic\diamond.yaml rr ok       abs=1.776357e-15
+[ Info: C:\work\src\Mbo\examples\cohmap_electronic\diamond.yaml rn ok       abs=1.776357e-15
+[ Info: C:\work\src\Mbo\examples\cohmap_vibrational\vib_ia.yaml rr ok       abs=5.551115e-16
+[ Info: C:\work\src\Mbo\examples\cohmap_vibrational\vib_ia.yaml rn ok       abs=4.449557e-16
+[ Info: C:\work\src\Mbo\examples\electronic\ecoh.yaml rr ok       abs=1.110223e-15
+[ Info: C:\work\src\Mbo\examples\electronic\ecoh.yaml rn ok       abs=9.930137e-16
+ERROR: LoadError: SystemError: opening file "C:\\work\\src\\Mbo\\examples\\electronic\\ecoh_uc_rr.bin.ref06": No such file or directory
+Stacktrace:
+ [1] systemerror(p::String, errno::Int32; extrainfo::Nothing)
+   @ Base .\error.jl:176
+ [2] systemerror
+   @ .\error.jl:175 [inlined]
+ [3] open(fname::String; lock::Bool, read::Nothing, write::Nothing, create::Nothing, truncate::Nothing, append::Nothing)
+   @ Base .\iostream.jl:293
+ [4] open
+   @ .\iostream.jl:275 [inlined]
+ [5] open(f::Base.var"#435#436"{Array{ComplexF64, 3}}, args::String; kwargs::@Kwargs{})
+   @ Base .\io.jl:394
+ [6] open(f::Function, args::String)
+   @ Base .\io.jl:393
+ [7] read!
+   @ .\io.jl:496 [inlined]
+ [8] run(args::Vector{String})
+   @ Main C:\work\src\Mbo\examples\compare_bin.jl:38
+ [9] top-level scope
+   @ C:\work\src\Mbo\examples\compare_bin.jl:48
+in expression starting at C:\work\src\Mbo\examples\compare_bin.jl:48
+[ Info: C:\work\src\Mbo\examples\esa\basic_ia.yaml rr ok       abs=1.110223e-16
+[ Info: C:\work\src\Mbo\examples\esa\basic_ia.yaml rn ok       abs=1.734723e-18
+[ Info: C:\work\src\Mbo\examples\kubo\kubo.yaml rr ok       abs=5.928591e-14
+[ Info: C:\work\src\Mbo\examples\kubo\kubo.yaml rn ok       abs=3.486100e-14
+[ Info: C:\work\src\Mbo\examples\od_slow\od_slow.yaml rr ok       abs=5.915088e-14
+[ Info: C:\work\src\Mbo\examples\od_slow\od_slow.yaml rn ok       abs=3.440259e-14
+[ Info: C:\work\src\Mbo\examples\overdamped\overdamped.yaml rr ok       abs=5.601568e-14
+[ Info: C:\work\src\Mbo\examples\overdamped\overdamped.yaml rn ok       abs=3.283333e-14
+[ Info: C:\work\src\Mbo\examples\qd_ema\ema.yaml rr ok       abs=1.776357e-15
+[ Info: C:\work\src\Mbo\examples\qd_ema\ema.yaml rn ok       abs=1.779823e-15
+[ Info: C:\work\src\Mbo\examples\qd_ema\ema_BX.yaml rr ok       abs=8.950904e-16
+[ Info: C:\work\src\Mbo\examples\qd_ema\ema_BX.yaml rn ok       abs=9.155134e-16
+[ Info: C:\work\src\Mbo\examples\vibrational\vibrational.yaml rr ok       abs=4.441028e-16
+[ Info: C:\work\src\Mbo\examples\vibrational\vibrational.yaml rn ok       abs=4.441028e-16
+[ Info: C:\work\src\Mbo\examples\vibrational\wavepacket.yaml rr ok       abs=4.475452e-16
+[ Info: C:\work\src\Mbo\examples\vibrational\wavepacket.yaml rn ok       abs=4.577567e-16

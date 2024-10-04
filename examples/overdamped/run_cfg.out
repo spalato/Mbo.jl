@@ -1,15 +1,15 @@
-INFO: Loading parameters from C:\work\src\Mbo\examples\overdamped\overdamped.yaml
-INFO: Setting up system
+[ Info: Loading parameters from C:\work\src\Mbo\examples\overdamped\overdamped.yaml
+[ Info: Setting up system
 Timesteps: 
-INFO: Computing linear response
-INFO: Saving to overdamped_rlin.txt
-INFO: Saving linear spectrum to overdamped_slin.txt
-INFO: Computing third order response
-INFO: Saving to overdamped_rr.bin, overdamped_rn.bin
-INFO: Calulation took 10.795372901 s
-INFO: Saving rephasing spectrum to overdamped_sr.bin
-INFO: Saving non-rephasing spectrum to overdamped_sn.bin
-INFO: Saving absorptive spectrum to overdamped_sa.bin
+[ Info: Computing linear response
+[ Info: Saving to overdamped_rlin.txt
+[ Info: Saving linear spectrum to overdamped_slin.txt
+[ Info: Computing third order response
+[ Info: Saving to overdamped_rr.bin, overdamped_rn.bin
+[ Info: Calulation took 13.912999868392944 s
+[ Info: Saving rephasing spectrum to overdamped_sr.bin
+[ Info: Saving non-rephasing spectrum to overdamped_sn.bin
+[ Info: Saving absorptive spectrum to overdamped_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.

@@ -53,7 +53,7 @@ f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 @info("Computing third order response")
-#tic()
+t0 = time()
 rr = R2(tg, s) + R3(tg, s)
 rn = R1(tg, s) + R4(tg, s)
 
@@ -73,8 +73,8 @@ if iseven(size(sa, 1))
 else
     sa += reverse(sr, dims=1)
 end
-#dt = toq()
-#@info("Calulation took $(dt) s")
+dt = time()-t0
+@info("Calulation took $(dt) s")
 @info("Saving rephasing spectrum to $(root)_sr.bin")
 write("$(root)_sr.bin", sr)
 @info("Saving non-rephasing spectrum to $(root)_sn.bin")

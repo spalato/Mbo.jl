@@ -109,7 +109,7 @@ f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 @info("Computing third order response")
-# tic()
+t0 = time()
 # Rephasing induced absorption is given by R1* 
 # Nonrephasing IA is given by R2*
 # Should be streamlined...
@@ -127,8 +127,8 @@ for hp in hilbert_paths(s, 3)
         rn += R1(tg, s, hp) + R4(tg, s, hp)
     end
 end
-# dt = toq()
-#@info("Calulation took $(dt) s")
+dt = time()-t0
+@info("Calulation took $(dt) s")
 @info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
 write("$(root)_rn.bin", rn)

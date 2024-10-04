@@ -69,7 +69,6 @@ tg = TimeGrid(
 )
 
 @info("Computing linear response")
-@info(s)
 r_lin = linear(tg, s) # TODO this is where it bugs because System does not have a length ...
 @info("Saving to $(root)_rlin.txt")
 writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
@@ -77,11 +76,11 @@ writedlm("$(root)_rlin.txt", [tg.times[1] real(r_lin) imag(r_lin)])
 r_lin[1] *= 0.5
 s_lin = fftshift(ifft(r_lin))
 f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
-info("Saving linear spectrum to $(root)_slin.txt")
+@info("Saving linear spectrum to $(root)_slin.txt")
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
-info("Computing third order response")
-# tic()
+@info("Computing third order response")
+t0 = time()
 hpaths = collect(hilbert_paths(s, 3))
 rr = zeros(ComplexF64, size(tg))
 rn = zeros(ComplexF64, size(tg))
@@ -89,7 +88,7 @@ rn = zeros(ComplexF64, size(tg))
 # Nonrephasing ESA is given by R2*
 # Should be streamlined...
 for p in hpaths
-    info("$p")
+    @info("$p")
     if p.p[3] == "g"
         rr += R2(tg, s, p) + R3(tg, s, p)
         rn += R1(tg, s, p) + R4(tg, s, p)
@@ -99,9 +98,9 @@ for p in hpaths
     end
 end
 
-# dt = toq()
-info("Calulation took $(dt) s")
-info("Saving to $(root)_rr.bin, $(root)_rn.bin")
+dt = time()-t0
+@info("Calulation took $(dt) s")
+@info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
 write("$(root)_rn.bin", rn)
 rr[1,:,:] *= 0.5
@@ -118,11 +117,11 @@ else
     sa += reverse(sr, dims=1)
 end
 
-info("Saving rephasing spectrum to $(root)_sr.bin")
+@info("Saving rephasing spectrum to $(root)_sr.bin")
 write("$(root)_sr.bin", sr)
-info("Saving non-rephasing spectrum to $(root)_sn.bin")
+@info("Saving non-rephasing spectrum to $(root)_sn.bin")
 write("$(root)_sn.bin", sn)
-info("Saving absorptive spectrum to $(root)_sa.bin")
+@info("Saving absorptive spectrum to $(root)_sa.bin")
 write("$(root)_sa.bin", sa)
 
 end # function main

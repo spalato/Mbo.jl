@@ -62,7 +62,7 @@ f_lin = fftshift(fftfreq(size(tg)[1], 1/(tg.times[1][2]-tg.times[1][1])))
 writedlm("$(root)_slin.txt", [f_lin real(s_lin) imag(s_lin)])
 
 @info("Computing third order response")
-# tic()
+t0 = time()
 hpaths = collect(hilbert_paths(s, 3))
 rr = zeros(ComplexF64, size(tg))
 rn = zeros(ComplexF64, size(tg))
@@ -78,8 +78,8 @@ for p in filter(hp->hp.p[3] == "f", hpaths)
     rn += -conj(R2(tg, s, p))
 end
 
-# dt = toq()
-#@info("Calulation took $(dt) s")
+dt = time()-t0
+@info("Calulation took $(dt) s")
 @info("Saving to $(root)_rr.bin, $(root)_rn.bin")
 write("$(root)_rr.bin", rr)
 write("$(root)_rn.bin", rn)

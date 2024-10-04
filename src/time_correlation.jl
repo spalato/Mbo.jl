@@ -11,9 +11,9 @@ end
 function GriddedCF(grid, dt) # performs the double integral on initialization
     grid = copy(grid)
     grid[1] *= 0.5
-    I1 = cumsum_kbn(grid).*dt
+    I1 = cumsum(grid).*dt
     # TODO: check next line is ok: cumsum_kbb(I1) vs cumsum_kbb(I1).*dt
-    GriddedCF(cumsum_kbn(I1), I1[end], dt, dt*length(grid))
+    GriddedCF(cumsum(I1), I1[end], dt, dt*length(grid))
 end
 # make callable
 function (cf::GriddedCF)(t)

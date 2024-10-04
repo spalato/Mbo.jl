@@ -2,7 +2,8 @@ $cfg=$args
 if (!$cfg) {
     $cfg=$(ls *.yaml)
 }
-julia basic_ia.jl $cfg
-python ../plot_linear.py $cfg
-python ../plot_2d.py $cfg
-#python plot_dyn.py $cfg
+foreach ($c in $cfg) {
+    julia --project basic_ia.jl $c
+    python ../plot_linear.py $c
+    python ../plot_2d.py $c
+}

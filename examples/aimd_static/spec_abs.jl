@@ -2,6 +2,8 @@
 # usage: julia spec_ft.jl <config> <out>
 
 import YAML
+using FFTW
+using Mmap
 
 function run(cfgf, root, outf)
     cfg = open(YAML.load, cfgf)

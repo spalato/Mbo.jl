@@ -1,14 +1,18 @@
 import YAML
 using Mbo
 using ProgressMeter
+using Printf
+using FFTW
+using DelimitedFiles
+using Mmap
 
-tag(i) = @sprintf "X%02d" i
+tag(i) = @sprintf("X%02d",i)
 function parse_corr(fn)
     readdlm(fn)
 end
 
 function run(args)
-t0 = now()
+t0 = time()
 cfgf = args[1]
 @info("Loading parameters from $(cfgf)")
 cfg = open(YAML.load, cfgf)
@@ -31,7 +35,7 @@ corrm = parse_corr(cf_fn)
 
 # build system
 @info("Building system...")
-t0_sys = now()
+t0_sys = time()
 s = System("G")
 frame = ev2angphz(cfg["e_frame"])
 lut_grid = 0.0:1.0:sum(map(maximum, (t1, t2, t3)))
@@ -54,14 +58,14 @@ for i=1:size(corrm)[1], j=1:size(corrm)[2]
     #end
     lineshape!(s, ti, tj, lut)
 end
-@info("    Took $(now()-t0_sys)")
+@info("    Took $(time()-t0_sys)")
 @info("Number of order 1 Hilbert Paths: $(length(collect(hilbert_paths(s, 1))))")
 @info("Number of order 3 Hilbert Paths: $(length(collect(hilbert_paths(s, 3))))")
 
 grd_lin = TimeGrid(t1)
 
 @info("Computing linear responses separately.")
-t0_calc = now()
+t0_calc = time()
 out_root = "$(splitext(basename(states_fn))[1])_$(splitext(basename(cf_fn))[1])"
 
 # compute them separately
@@ -74,30 +78,30 @@ for p in hilbert_paths(s, 1)
     writedlm(out_lin, [grid(grd_lin)[1] real(rlin) imag(rlin)])
 end
 writedlm(out_root*"_lin_tot.txt", [grid(grd_lin)[1] real(totlin) imag(totlin)])
-@info("    Took $(now()-t0_calc)")
+@info("    Took $(time()-t0_calc)")
 @info("Preparing calculation of third order response")
 grd_trd = TimeGrid(t1, t2, t3)
-info("Grid size: $(size(grd_trd))")
+@info("Grid size: $(size(grd_trd))")
 
 rr_fn = out_root*"_rr.bin"
 rn_fn = out_root*"_rn.bin"
-info("Saving rephasing to: $rr_fn")
-info("Saving nonrephasing to: $rr_fn")
+@info("Saving rephasing to: $rr_fn")
+@info("Saving nonrephasing to: $rr_fn")
 rr_out = open(rr_fn, "w+")
 rn_out = open(rn_fn, "w+")
 rr = Mmap.mmap(rr_out, Array{ComplexF64, 3}, size(grd_trd))
 rn = Mmap.mmap(rn_out, Array{ComplexF64, 3}, size(grd_trd))
 pm = Progress(4*length(collect(hilbert_paths(s, 3))))
-info("Computing third order response")
-t0_third = now()
+@info("Computing third order response")
+t0_third = time()
 rr .+= R2(grd_trd, s, pm)
 rr .+= R3(grd_trd, s, pm)
 rn .+= R1(grd_trd, s, pm)
 rn .+= R4(grd_trd, s, pm)
-info("    Took $(now()-t0_third)")
+@info("    Took $(time()-t0_third)")
 close(rr_out)
 close(rn_out)
-info("Total runtime: $(now()-t0)")
+@info("Total runtime: $(time()-t0)")
 end # run
 
 run(ARGS)

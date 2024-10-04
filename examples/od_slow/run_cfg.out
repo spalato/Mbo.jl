@@ -1,14 +1,14 @@
-INFO: Loading parameters from C:\work\src\Mbo\examples\od_slow\od_slow.yaml
-INFO: Setting up system
-INFO: Computing linear response
-INFO: Saving to od_slow_rlin.txt
-INFO: Saving linear spectrum to od_slow_slin.txt
-INFO: Computing third order response
-INFO: Saving to od_slow_rr.bin, od_slow_rn.bin
-INFO: Calulation took 12.5077759 s
-INFO: Saving rephasing spectrum to od_slow_sr.bin
-INFO: Saving non-rephasing spectrum to od_slow_sn.bin
-INFO: Saving absorptive spectrum to od_slow_sa.bin
+[ Info: Loading parameters from C:\work\src\Mbo\examples\od_slow\od_slow.yaml
+[ Info: Setting up system
+[ Info: Computing linear response
+[ Info: Saving to od_slow_rlin.txt
+[ Info: Saving linear spectrum to od_slow_slin.txt
+[ Info: Computing third order response
+[ Info: Saving to od_slow_rr.bin, od_slow_rn.bin
+[ Info: Calulation took 11.293999910354614 s
+[ Info: Saving rephasing spectrum to od_slow_sr.bin
+[ Info: Saving non-rephasing spectrum to od_slow_sn.bin
+[ Info: Saving absorptive spectrum to od_slow_sa.bin
 C:\work\src\Mbo\examples\plot_linear.py:15: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
   cfg = yaml.load(f)
 C:\work\src\Mbo\examples\plot_2d.py:42: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
