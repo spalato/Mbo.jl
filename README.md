@@ -47,6 +47,10 @@ hard coded, read from a file, or computed from ancillary algorithms (for
 example, diagonalizing a site basis to an exciton basis). `Julia` can call
 code written in `C`, `Fortran` and `python`.
 
+The best way to get started using the code for modeling is to look at supplied
+examples. See the `/examples/` folder and the [Examples section](#Examples)
+below.
+
 <!--
 The purpose of this code is *not* to build a modeling suite, but to make this
 tedious calculation easier to script. It assumes the user is capable of hacking their way through data using `Matlab` or `python`. Modeling suites often fall
@@ -235,7 +239,7 @@ Works, but deserve improvement:
 Citing
 ======
 If you found this useful, please consider citing the following paper:
-> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampat, Atomic fluctuations in electronic materials revealed by dephasing, *PNAS* (2020) https://doi.org/10.1073/pnas.1916792117
+> S. Palato, H. Seiler, P. Nijjar, O. Prezhdo, P. Kambhampati, Atomic fluctuations in electronic materials revealed by dephasing, *PNAS* (2020) https://doi.org/10.1073/pnas.1916792117
 
 Examples
 ========
@@ -275,15 +279,20 @@ Plotting in python requires `numpy` and `matplotlib`, see `examples/python_requi
 Help!
 =====
 Please open an issue using the 'Issues' tab at the top. You found a bug? You
-can't achieve what you want? Lost and confused? Anything works. 
+can't achieve what you want? Lost and confused? Maybe we can help (maybe not). 
 
-<!--
+<!-->
 TODO
 ====
-- [x] Handle ground states easily. (Default lineshape functions in case they're missing)
-- [x] Compilation to LUT
+- [ ] Update python scripts to remove deprecation warnings
+- [ ] Tidy up python dependencies
+- [ ] Tidy up julia dependencies
+
+<!--
+- [ ] Switch to TOML
 - [ ] Add rotating frames properly.
 - [ ] Add automatic rephasing vs non-rephasing (`rephasing(grid,system)`).
+- [ ] Do we want to add filters? Maybe just a `cookbook` is ok.
 - [ ] Convenience for zeroing transition dipole moments (`forbidden`?)
 - [ ] Convenience for uncorrelating states (lineshape function=zero)?
 <!-- 
