@@ -1,6 +1,6 @@
 name = "Mbo"
 uuid = "abb35812-7e48-465d-8fd2-5263f57cc2e0"
-authors = ["Samuel Palato"]
+authors = ["Samuel Palato","Pierre-Francois Duc"]
 version = "1.1.0"
 
 [deps]
