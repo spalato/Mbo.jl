@@ -76,6 +76,18 @@ Once julia is installed, open `julia` and type:
 ```julia
 julia> ]
 ```
+Then 
+```julia
+@v1.10 pkg> add https://github.com/spalato/Mbo.jl
+```
+If you get an error regarding version of `git`, try to run `julia` after
+deactivating all your `conda` envs. If you run into issues, please file an issue
+in `github` using the `Issues` tab above.
+
+<!--
+```julia
+julia> ]
+```
 
 Then 
 ```julia
@@ -91,11 +103,13 @@ Finally precompile the package with
 ```julia
 Mbo.jl pkg> precompile
 ```
+-->
 
 The initial version of this code (up to `Mbo.jl v1.0`) was written for 
 `julia v0.6`, which was never intended for long-term support. The current 
 version of `Mbo.jl` has been updated to work with `julia v1.10`. For upgrading
-your scripts, see the [migration guide](migration_guide.md).
+your scripts, see the [migration guide](migration_guide.md). There really isn't
+much to do.
 
 Documentation
 ============
