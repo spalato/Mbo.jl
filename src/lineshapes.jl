@@ -43,5 +43,5 @@ function LineshapeLUT(f, x::AbstractRange{Tx}) where {Tx}#, Tls}
     LineshapeLUT{Tx,eltype(gx)}(gx, step(x)) 
 end
 
-(g::LineshapeLUT)(t) = g.lut[Int(t/g.dx)+1]
+(g::LineshapeLUT)(t) = g.lut[Int(round(t/g.dx; digits=4))+1]
 # we should probably define the addition of multiple lineshape types. Whatever.
