@@ -1,7 +1,7 @@
 name = "Mbo"
 uuid = "abb35812-7e48-465d-8fd2-5263f57cc2e0"
 authors = ["Samuel Palato","Pierre-Francois Duc"]
-version = "1.1.0"
+version = "1.1.1"
 
 [deps]
 DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
