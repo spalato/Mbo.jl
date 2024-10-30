@@ -1,5 +1,6 @@
-export TimeGrid, grid#, size
+export TimeGrid, grid, t_to_f, freqs
 import DSP: fftfreq
+import Statistics: mean
 
 # check StaticArrays
 struct TimeGrid{T,N}
@@ -13,8 +14,6 @@ function grid(tg::TimeGrid{T,N}) where {T,N}
           for (i, t_) in enumerate(tg.times))
 end
 Base.size(tg::TimeGrid) = map(length, tg.times)
-# to find a greater common divisor (gcd) for floats:
-# https://www.geeksforgeeks.org/program-find-gcd-floating-point-numbers/
 
 t_to_f(t::AbstractRange) = fftshift(fftfreq(length(t), 1/step(t)))
 # use mean step. Hopefully doesn't matter.
