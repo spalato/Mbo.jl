@@ -1,5 +1,5 @@
 export TimeGrid, grid, t_to_f, freqs
-import DSP: fftfreq
+using FFTW
 import Statistics: mean
 
 # check StaticArrays
