@@ -1,4 +1,4 @@
-export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_od, g_od_slow
+export g_homo, g_inhomo, g_huang_rhys, g_kubo, LineshapeLUT, g_od, g_od_slow, g_damped
 
 #=                  LINESHAPE FUNCTIONS                                 =#
 g_homo(t, γ) = t*γ
@@ -18,17 +18,34 @@ function matsu_freq(n, kt, t, τ)
     (exp(-nun*t)+nun*t-1)/(nun*(nun^2-1/τ^2))::Real
 end
 
-function g_od(t, τ, σ, kt) # overdamped
-    t == 0.0 && return 0.0
+function g_od(t, τ, σ, kt) # overdamped. From eqs 26-29 in https://doi.org/10.1021/ja00103a020
+    t == 0.0 && return 0.0+1im*0.0 # type stability!
     λ = σ^2/2/kt
     gi = λ*τ*(1-exp(-t/τ))
-    nmin = ceil(Int, 1/(2*π*kt*τ))
+    nmin = clamp(ceil(Int, 1/(2*π*kt*τ)), 100, 1000000)
     gr = λ*τ*cot(1/2/τ/kt)*(exp(-t/τ)+t/τ-1) + 4*λ*kt/τ * converge_series(k->matsu_freq(k, kt, t, τ), nmin=nmin)
     gr+1im*gi
 end
 
-#abstract type Lineshape end
-# Tried with LazyList. HORRIBLY SLOW (they don't carry type information)
+#= Doesn't work...
+function damped_freq(n, kt, t, τ, ω_b)
+    nun = 2*π*kt*n
+    nunt = nun*t
+    nun2 = nun*nun
+    numerator = (exp(-nunt)+nunt-1)
+    denominator = nun*(nun2-((1+nun2/(ω_b^2))/τ)^2)
+    (numerator/denominator)::Real
+end
+
+function g_damped(t, τ, σ, kt, ω_B)
+    t == 0.0 && return 0.0+1im*0.0 # type stability!
+    λ = σ^2/2/kt
+    gi = λ*τ*(1-exp(-t/τ))
+    nmin = clamp(ceil(Int, 1/(2*π*kt*τ)), 100, 1000000)
+    gr = λ*τ*cot(1/2/τ/kt)*(exp(-t/τ)+t/τ-1) + 4*λ*kt/τ * converge_series(k->damped_freq(k, kt, t, τ, ω_B), nmin=nmin)
+    gr+1im*gi
+end =#
+
 # this is VERY efficient. We should find a way to make this automatic
 struct LineshapeLUT{Tx<:Real, Tls<:Number}# <: Lineshape
     lut::Array{Tls,1}
